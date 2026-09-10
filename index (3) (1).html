@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>कथा — दीर्घ कथाएँ और उपन्यास</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@300;400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital,wght@0,400;0,500;0,600;1,400&family=Anek+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#151019;--ink2:#1d1521;--ink3:#292030;--ink4:#352a3e;
+  --paper:#f3ead9;--cream:#efe4cd;
+  --saff:#f0a13c;--saff2:#ffc46a;
+  --tx:#f0e7da;--tx2:#b4a694;--tx3:#7d7166;
+  --line:rgba(227,192,107,.16);--line2:rgba(227,192,107,.32);
+  --g-prem:#e86a5c;--g-rahasya:#3fae9a;--g-bhay:#9a7fd6;--g-kavita:#e3c06b;--g-lok:#69a76b;--g-samajik:#6b93d9;
+  --rad:14px;--shadow:0 18px 44px rgba(0,0,0,.42);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--tx);font-family:'Mukta',system-ui,sans-serif;font-size:16px;line-height:1.55;overflow-x:hidden}
+::selection{background:var(--saff);color:#221407}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+.disp{font-family:'Rozha One',serif;font-weight:400}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+#bgfx{position:fixed;inset:0;z-index:-2;background:
+ radial-gradient(1100px 600px at 85% -10%,rgba(226,87,76,.16),transparent 60%),
+ radial-gradient(900px 700px at -10% 30%,rgba(240,161,60,.12),transparent 55%),
+ radial-gradient(800px 800px at 60% 110%,rgba(63,174,154,.10),transparent 60%),
+ var(--ink)}
+#bgfx::after{content:"";position:absolute;inset:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
+#glyphs span{position:fixed;font-family:'Rozha One';color:rgba(240,225,196,.05);z-index:-1;pointer-events:none;animation:drift linear infinite alternate}
+@keyframes drift{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-70px) rotate(6deg)}}
+
+#splash{position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .6s,visibility .6s}
+#splash.off{opacity:0;visibility:hidden}
+.seal{width:92px;height:92px;border-radius:50%;border:2px solid var(--saff);display:grid;place-items:center;font-family:'Rozha One';font-size:52px;color:var(--saff);position:relative;animation:seal 1s cubic-bezier(.2,1.4,.4,1)}
+.seal::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px dashed var(--line2);animation:spin 22s linear infinite}
+@keyframes seal{from{transform:scale(.4);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+#splash .word{font-family:'Rozha One';font-size:44px;letter-spacing:.06em;display:flex}
+#splash .word span{opacity:0;animation:rise .7s forwards}
+#splash .word span:nth-child(2){animation-delay:.15s}#splash .word span:nth-child(3){animation-delay:.3s}
+@keyframes rise{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+#splash small{color:var(--tx2);letter-spacing:.35em;font-size:11px;text-transform:uppercase}
+
+#topbar{position:sticky;top:0;z-index:60;background:rgba(21,16,25,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+#topbar .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.logo .seal{width:38px;height:38px;font-size:22px;border-width:1.5px}
+.logo .seal::after{display:none}
+.logo b{font-family:'Rozha One';font-weight:400;font-size:26px;line-height:1}
+.logo small{display:block;font-size:10px;letter-spacing:.28em;color:var(--tx2);font-weight:500}
+.tnav{display:none;gap:4px;margin-left:12px}
+.tnav button{padding:8px 14px;border-radius:999px;color:var(--tx2);font-weight:600;font-size:14.5px;transition:.25s}
+.tnav button:hover{color:var(--tx);background:rgba(255,255,255,.05)}
+.tnav button.on{color:#221407;background:var(--saff)}
+#topbar .sp{flex:1}
+.iconbtn{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);color:var(--tx2);transition:.25s;position:relative}
+.iconbtn:hover{color:var(--saff);border-color:var(--line2);transform:translateY(-1px)}
+.iconbtn .dot{position:absolute;top:9px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--g-prem);box-shadow:0 0 0 3px rgba(232,106,92,.25);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(232,106,92,.08)}}
+#bellPanel{position:absolute;top:56px;right:20px;width:280px;background:var(--ink3);border:1px solid var(--line2);border-radius:14px;padding:14px;display:none;box-shadow:var(--shadow);z-index:70}
+#bellPanel.open{display:block;animation:pop .3s}
+#bellPanel p{font-size:13.5px;color:var(--tx2);padding:8px 4px;border-bottom:1px dashed var(--line)}
+#bellPanel p b{color:var(--saff)}
+@keyframes pop{from{transform:translateY(-8px);opacity:0}}
+
+main{min-height:calc(100vh - 64px);padding-bottom:110px}
+.view{animation:viewIn .45s ease}
+@keyframes viewIn{from{opacity:0;transform:translateY(14px)}}
+section{margin-top:44px}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.shead .ey{font-size:12px;letter-spacing:.3em;color:var(--saff);font-weight:700;text-transform:uppercase}
+.shead h2{font-family:'Rozha One';font-weight:400;font-size:clamp(24px,3.4vw,34px);line-height:1.1}
+.shead a{margin-left:auto;color:var(--tx2);font-size:14px;font-weight:600;white-space:nowrap;transition:.2s}
+.shead a:hover{color:var(--saff);transform:translateX(3px)}
+.orn{color:var(--saff);letter-spacing:.4em;text-align:center;font-size:13px;opacity:.7;margin:46px 0 -12px}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 26px;border-radius:11px;font-weight:700;font-size:15.5px;transition:.25s;position:relative;overflow:hidden}
+.btn-p{background:var(--saff);color:#221407;box-shadow:0 8px 22px rgba(240,161,60,.28)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(240,161,60,.4)}
+.btn-p::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:.6s}
+.btn-p:hover::after{left:130%}
+.btn-g{border:1px solid var(--line2);color:var(--tx)}
+.btn-g:hover{border-color:var(--saff);color:var(--saff);transform:translateY(-2px)}
+.btn-sm{padding:8px 16px;font-size:13.5px;border-radius:9px}
+
+.feat{display:grid;gap:30px;margin-top:34px;position:relative}
+.feat::before{content:"क";position:absolute;font-family:'Rozha One';font-size:min(46vw,420px);color:rgba(240,225,196,.035);top:-90px;right:-30px;line-height:1;pointer-events:none}
+.feat-info{align-self:center;position:relative}
+.feat-info .tag{display:inline-flex;gap:8px;align-items:center;background:rgba(232,106,92,.14);border:1px solid rgba(232,106,92,.4);color:#ff9d90;padding:5px 14px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:.12em}
+.feat-info h1{font-family:'Rozha One';font-weight:400;font-size:clamp(34px,5.4vw,62px);line-height:1.12;margin:16px 0 8px}
+.feat-info .au{color:var(--saff);font-weight:600;font-size:15px}
+.feat-info .ex{font-family:'Tiro Devanagari Hindi';font-size:17.5px;color:var(--tx2);max-width:56ch;margin:16px 0 20px;line-height:1.9}
+.feat-info .meta{display:flex;flex-wrap:wrap;gap:16px;color:var(--tx2);font-size:13.5px;margin-bottom:24px}
+.feat-info .meta b{color:var(--tx)}
+.feat-cta{display:flex;gap:12px;flex-wrap:wrap}
+.feat-cover{display:grid;place-items:center}
+.bigcover{width:min(320px,78vw);aspect-ratio:3/4;transform:rotate(-3.5deg);transition:.5s cubic-bezier(.2,1,.3,1);position:relative;filter:drop-shadow(0 30px 50px rgba(0,0,0,.55))}
+.bigcover:hover{transform:rotate(0) scale(1.02)}
+.bigcover::before{content:"";position:absolute;inset:10px;border:1px solid rgba(243,234,217,.28);border-radius:8px;pointer-events:none;z-index:2}
+@media(min-width:820px){.feat{grid-template-columns:1.12fr .88fr}}
+
+.cover{border-radius:10px;position:relative;overflow:hidden;display:grid;place-items:center}
+.cover .glyph{font-family:'Rozha One';opacity:.26;font-size:inherit;line-height:1;text-shadow:0 4px 24px rgba(0,0,0,.4)}
+.cover .band{position:absolute;left:0;top:0;bottom:0;width:7px;background:rgba(0,0,0,.28);border-right:1px solid rgba(255,255,255,.12)}
+.cover .shine{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.14),transparent 38%)}
+.pat-0{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 12px)!important;background-blend-mode:overlay}
+.pat-1{background-image:radial-gradient(rgba(255,255,255,.08) 1.5px,transparent 1.6px)!important;background-size:16px 16px!important}
+.pat-2{background-image:radial-gradient(circle at 100% 0%,transparent 34%,rgba(255,255,255,.06) 35% 36%,transparent 37% 48%,rgba(255,255,255,.06) 49% 50%,transparent 51% 66%,rgba(255,255,255,.06) 67% 68%,transparent 69%)!important}
+.pat-3{background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 3px,transparent 3px 14px)!important}
+.shelf{display:grid;grid-auto-flow:column;grid-auto-columns:168px;gap:18px;overflow-x:auto;padding:6px 2px 20px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--ink4) transparent}
+.shelf::-webkit-scrollbar{height:8px}.shelf::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:9px}
+.shelf>*{scroll-snap-align:start}
+.card{cursor:pointer;transition:transform .3s ease}
+.card:hover{transform:translateY(-6px)}
+.card .cover{aspect-ratio:3/4;font-size:64px;margin-bottom:11px;box-shadow:0 10px 24px rgba(0,0,0,.35);transition:.3s;border:1px solid rgba(255,255,255,.07)}
+.card:hover .cover{box-shadow:0 18px 34px rgba(0,0,0,.5)}
+.card .cover .cta{position:absolute;inset:auto 0 0 0;padding:9px;text-align:center;background:rgba(20,12,8,.82);backdrop-filter:blur(4px);color:var(--saff2);font-weight:700;font-size:13px;letter-spacing:.15em;transform:translateY(100%);transition:.3s}
+.card:hover .cover .cta{transform:none}
+.card h3{font-size:15.5px;font-weight:700;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .au{font-size:12.5px;color:var(--tx2);margin:2px 0 4px}
+.card .cm{display:flex;gap:12px;font-size:12px;color:var(--tx3)}
+.gtag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.1em;padding:2px 9px;border-radius:99px;border:1px solid;margin-bottom:7px}
+.g-prem{--gc:var(--g-prem)}.g-rahasya{--gc:var(--g-rahasya)}.g-bhay{--gc:var(--g-bhay)}.g-kavita{--gc:var(--g-kavita)}.g-lok{--gc:var(--g-lok)}.g-samajik{--gc:var(--g-samajik)}
+.gtag,.pill{color:var(--gc);border-color:color-mix(in srgb,var(--gc) 55%,transparent);background:color-mix(in srgb,var(--gc) 14%,transparent)}
+
+.gtiles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:720px){.gtiles{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1000px){.gtiles{grid-template-columns:repeat(6,1fr)}}
+.gtile{border:1px solid var(--line);border-radius:var(--rad);padding:22px 14px 18px;text-align:center;cursor:pointer;transition:.3s;position:relative;overflow:hidden;background:var(--ink2)}
+.gtile::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,color-mix(in srgb,var(--gc) 30%,transparent),transparent 70%);opacity:0;transition:.3s}
+.gtile:hover{transform:translateY(-5px);border-color:var(--gc)}
+.gtile:hover::before{opacity:1}
+.gtile .gg{font-family:'Rozha One';font-size:34px;color:var(--gc);position:relative}
+.gtile b{display:block;margin-top:6px;position:relative}
+.gtile small{color:var(--tx3);font-size:12px;position:relative}
+
+.stats{border-block:1px solid var(--line);display:grid;grid-template-columns:repeat(2,1fr);text-align:center;position:relative;overflow:hidden}
+.stats::before{content:"॥";position:absolute;font-family:'Rozha One';font-size:200px;color:rgba(240,225,196,.03);left:50%;top:50%;transform:translate(-50%,-50%)}
+@media(min-width:720px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats>div{padding:34px 10px;border-left:1px solid var(--line)}
+.stats>div:first-child{border-left:0}
+.stats b{font-family:'Rozha One';font-weight:400;font-size:clamp(28px,4vw,44px);color:var(--saff);display:block}
+.stats span{font-size:13px;color:var(--tx2);letter-spacing:.12em}
+
+.authrow{display:flex;gap:26px;overflow-x:auto;padding:8px 2px 18px}
+.authrow .a{flex:0 0 auto;text-align:center;cursor:pointer;transition:.25s;width:96px}
+.authrow .a:hover{transform:translateY(-4px)}
+.authrow .av{width:66px;height:66px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-family:'Rozha One';font-size:26px;border:2px solid var(--line2);transition:.25s}
+.authrow .a:hover .av{border-color:var(--saff)}
+.authrow b{font-size:13.5px;display:block;line-height:1.25}
+.authrow small{color:var(--tx3);font-size:11.5px}
+
+.grid{display:grid;gap:22px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1140px){.grid{grid-template-columns:repeat(5,1fr)}}
+
+.searchbar{display:flex;align-items:center;gap:12px;background:var(--ink2);border:1.5px solid var(--line);border-radius:14px;padding:0 18px;margin:26px 0 16px;transition:.25s}
+.searchbar:focus-within{border-color:var(--saff);box-shadow:0 0 0 4px rgba(240,161,60,.12)}
+.searchbar svg{color:var(--tx3);flex:none}
+.searchbar input{flex:1;background:none;border:none;outline:none;padding:15px 0;font-size:16.5px;color:var(--tx)}
+.chips{display:flex;gap:10px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:8px 18px;border-radius:999px;border:1px solid var(--line2);color:var(--tx2);font-weight:600;font-size:13.5px;transition:.22s}
+.chip:hover{color:var(--tx);border-color:var(--saff)}
+.chip.on{background:var(--saff);color:#221407;border-color:var(--saff);font-weight:700}
+.exp-head{display:flex;align-items:center;gap:14px;margin:8px 0 20px;flex-wrap:wrap}
+.exp-head small{color:var(--tx3)}
+select{background:var(--ink3);border:1px solid var(--line2);border-radius:10px;padding:9px 14px;outline:none;color:var(--tx);margin-left:auto}
+.empty{text-align:center;padding:70px 20px;color:var(--tx3)}
+.empty .disp{font-size:30px;color:var(--tx2);margin-bottom:8px}
+
+.backbtn{display:inline-flex;align-items:center;gap:8px;color:var(--tx2);font-weight:600;margin:22px 0 8px;padding:8px 14px 8px 10px;border-radius:10px;transition:.2s}
+.backbtn:hover{color:var(--saff);background:rgba(255,255,255,.04);transform:translateX(-3px)}
+.d-grid{display:grid;gap:34px;margin-top:12px}
+@media(min-width:860px){.d-grid{grid-template-columns:300px 1fr}}
+.d-cover{position:relative;width:min(300px,74vw);margin:0 auto}
+.d-cover .cover{aspect-ratio:3/4;font-size:110px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)}
+.d-info h1{font-family:'Rozha One';font-weight:400;font-size:clamp(30px,4.6vw,48px);line-height:1.15;margin:10px 0 16px}
+.d-auth{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.d-auth .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:'Rozha One';font-size:19px;border:1.5px solid var(--line2)}
+.d-auth b{display:block;font-size:15px}
+.d-auth small{color:var(--tx3);font-size:12.5px}
+.d-stats{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:18px 0;background:var(--ink2)}
+.d-stats div{flex:1;min-width:100px;text-align:center;padding:14px 8px;border-left:1px solid var(--line)}
+.d-stats div:first-child{border-left:0}
+.d-stats b{display:block;font-size:17px;color:var(--saff)}
+.d-stats span{font-size:11.5px;color:var(--tx3);letter-spacing:.08em}
+.d-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.likebtn.on{color:#ff7a6e;border-color:#ff7a6e;background:rgba(232,106,92,.12)}
+.savebtn.on{color:var(--saff);border-color:var(--saff);background:rgba(240,161,60,.12)}
+.synopsis{font-family:'Tiro Devanagari Hindi';color:var(--tx2);font-size:16.5px;line-height:1.9;border-left:3px solid var(--saff);padding:4px 0 4px 18px;margin-bottom:28px}
+.chlist{display:flex;flex-direction:column;gap:9px;margin-bottom:34px}
+.chrow{display:flex;align-items:center;gap:14px;background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;cursor:pointer;transition:.22s}
+.chrow:hover{border-color:var(--line2);transform:translateX(5px);background:var(--ink3)}
+.chrow .n{font-family:'Rozha One';color:var(--saff);font-size:19px;width:34px;text-align:center}
+.chrow b{font-weight:600;font-size:15px;flex:1}
+.chrow small{color:var(--tx3);font-size:12.5px;flex:none}
+.chrow .prog{width:40px;height:4px;background:var(--ink4);border-radius:9px;overflow:hidden;flex:none}
+.chrow .prog i{display:block;height:100%;background:var(--saff);border-radius:9px}
+
+/* ===== READER OVERHAUL FOR LONG-FORM ===== */
+#reader{position:fixed;inset:0;z-index:120;display:none;flex-direction:column}
+#reader.open{display:flex;animation:viewIn .35s}
+#rProgress{position:absolute;top:0;left:0;height:3px;background:var(--saff);width:0;transition:width .1s;z-index:5}
+.r-layout{display:flex;flex:1;overflow:hidden}
+.r-sidebar{width:280px;background:rgba(21,16,25,.95);border-right:1px solid var(--line);display:flex;flex-direction:column;flex-shrink:0;transition:transform .3s}
+.r-sidebar.collapsed{transform:translateX(-100%);width:0;border:none}
+.r-sidebar-head{padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.r-sidebar-head b{font-family:'Rozha One';font-size:15px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-chlist{flex:1;overflow-y:auto;padding:8px}
+.r-chitem{padding:12px 14px;border-radius:10px;cursor:pointer;transition:.2s;margin-bottom:4px;border:1px solid transparent}
+.r-chitem:hover{background:rgba(255,255,255,.04);border-color:var(--line)}
+.r-chitem.active{background:rgba(240,161,60,.1);border-color:var(--saff)}
+.r-chitem .cht{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
+.r-chitem .chm{font-size:11.5px;color:var(--tx3);display:flex;gap:10px}
+.r-chitem .chprog{height:3px;background:var(--ink4);border-radius:9px;margin-top:6px;overflow:hidden}
+.r-chitem .chprog i{display:block;height:100%;background:var(--saff);border-radius:9px}
+.r-main{flex:1;display:flex;flex-direction:column;min-width:0}
+.r-topbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(128,128,128,.18);flex-shrink:0}
+.r-topbar .toggle-sb{display:none}
+.r-topbar b{font-family:'Rozha One';font-weight:400;font-size:17px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-body-wrap{flex:1;overflow-y:auto;padding:34px 22px 60px;position:relative}
+.r-body-inner{max-width:720px;margin:0 auto}
+.r-body-inner .chno{font-size:12px;letter-spacing:.3em;opacity:.6;font-weight:700;margin-bottom:6px}
+.r-body-inner .chtitle{font-family:'Rozha One';font-weight:400;font-size:clamp(24px,3.4vw,32px);margin-bottom:24px}
+.r-body-inner p{font-family:'Tiro Devanagari Hindi';line-height:var(--lh,2.05);margin:1.15em 0;white-space:pre-line}
+.r-body-inner .end-mark{text-align:center;opacity:.6;margin-top:54px;font-family:'Rozha One';letter-spacing:.3em;font-size:18px}
+.r-foot{display:flex;gap:10px;justify-content:space-between;padding:12px 16px;border-top:1px solid rgba(128,128,128,.18);align-items:center;flex-shrink:0}
+.r-foot button{padding:9px 16px;border:1px solid rgba(128,128,128,.3);border-radius:10px;font-weight:600;font-size:13.5px;transition:.2s}
+.r-foot button:hover{border-color:var(--saff);color:var(--saff)}
+.r-foot .mid{border:none;letter-spacing:.15em;font-size:12.5px;opacity:.7}
+.r-time-remain{font-size:11.5px;color:var(--tx3);text-align:center;padding:4px 0;flex-shrink:0;border-bottom:1px solid rgba(128,128,128,.1)}
+#rSet{position:fixed;right:14px;top:60px;width:270px;border-radius:16px;padding:20px;display:none;z-index:130;box-shadow:var(--shadow);border:1px solid rgba(128,128,128,.25)}
+#rSet.open{display:block;animation:pop .25s}
+#rSet h4{font-size:12px;letter-spacing:.2em;opacity:.6;margin:14px 0 8px;font-weight:700}
+#rSet h4:first-child{margin-top:0}
+.themes{display:flex;gap:10px}
+.thsw{flex:1;height:44px;border-radius:10px;border:2px solid transparent;display:grid;place-items:center;font-weight:700;font-size:13px;transition:.2s}
+.thsw.on{border-color:var(--saff)}
+.frow{display:flex;align-items:center;gap:12px}
+.frow button{width:36px;height:36px;border-radius:9px;border:1px solid rgba(128,128,128,.3);font-weight:700}
+.frow input{flex:1;accent-color:var(--saff)}
+.auto-scroll-toggle{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(128,128,128,.15)}
+.auto-scroll-toggle label{font-size:13px;font-weight:600;flex:1}
+.toggle-switch{width:44px;height:24px;border-radius:99px;background:rgba(128,128,128,.3);position:relative;cursor:pointer;transition:.2s}
+.toggle-switch.on{background:var(--saff)}
+.toggle-switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.toggle-switch.on::after{left:23px}
+#reader.th-light{background:#f7f2e7;color:#2c241b}#reader.th-light .r-topbar,#reader.th-light .r-foot,#reader.th-light .r-sidebar{background:#f7f2e7;border-color:rgba(0,0,0,.08)}#reader.th-light .r-chitem.active{background:rgba(200,140,40,.12);border-color:#c88c28}
+#reader.th-sepia{background:#efe0c3;color:#3d2f1d}#reader.th-sepia .r-topbar,#reader.th-sepia .r-foot,#reader.th-sepia .r-sidebar{background:#efe0c3;border-color:rgba(0,0,0,.08)}#reader.th-sepia .r-chitem.active{background:rgba(180,120,30,.12);border-color:#b4781e}
+#reader.th-dark{background:#141016;color:#d9d0c1}#reader.th-dark .r-topbar,#reader.th-dark .r-foot,#reader.th-dark .r-sidebar{background:#141016;border-color:rgba(255,255,255,.06)}
+#rSet.th-light{background:#f7f2e7;color:#2c241b}#rSet.th-sepia{background:#efe0c3;color:#3d2f1d}#rSet.th-dark{background:#1d1721;color:#d9d0c1}
+.thsw-light{background:#f7f2e7;color:#2c241b}.thsw-sepia{background:#efe0c3;color:#3d2f1d}.thsw-dark{background:#181320;color:#d9d0c1}
+@media(max-width:860px){
+ .r-sidebar{position:absolute;left:0;top:0;bottom:0;z-index:10;width:280px;transform:translateX(-100%)}
+ .r-sidebar.mobile-open{transform:translateX(0)}
+ .r-topbar .toggle-sb{display:grid}
+}
+
+.wform{max-width:760px;margin:20px auto 0;display:flex;flex-direction:column;gap:20px}
+.wform label{font-size:13px;letter-spacing:.18em;color:var(--saff);font-weight:700;display:block;margin-bottom:8px;text-transform:uppercase}
+.field{background:var(--ink2);border:1.5px solid var(--line);border-radius:13px;padding:14px 18px;width:100%;outline:none;color:var(--tx);transition:.25s}
+.field:focus{border-color:var(--saff);box-shadow:0 0 0 4px rgba(240,161,60,.12)}
+textarea.field{min-height:150px;resize:vertical;line-height:1.8}
+.chblk{border:1px dashed var(--line2);border-radius:14px;padding:18px;background:rgba(255,255,255,.02)}
+.chblk .chh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--tx2);font-weight:700;font-size:14px}
+.chblk .del{color:var(--tx3)}.chblk .del:hover{color:var(--g-prem)}
+
+.tabs{display:flex;gap:8px;margin:24px 0;flex-wrap:wrap}
+.tab{padding:10px 22px;border-radius:11px;border:1px solid var(--line);color:var(--tx2);font-weight:600;transition:.2s}
+.tab.on{background:var(--saff);color:#221407;border-color:var(--saff)}
+.lrow{display:flex;gap:16px;align-items:center;background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;transition:.25s}
+.lrow:hover{transform:translateX(6px);border-color:var(--line2)}
+.lrow .cover{width:62px;height:84px;font-size:30px;flex:none}
+.lrow .li{flex:1;min-width:0}
+.lrow h3{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow small{color:var(--tx3);font-size:12.5px}
+.pbar{height:5px;background:var(--ink4);border-radius:9px;margin-top:8px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--saff);border-radius:9px}
+.lrow .rm{color:var(--tx3);padding:8px;border-radius:9px;flex:none}.lrow .rm:hover{color:var(--g-prem);background:rgba(232,106,92,.1)}
+
+.phero{display:flex;gap:22px;align-items:center;margin:30px 0 10px;flex-wrap:wrap}
+.phero .av{width:88px;height:88px;border-radius:50%;background:linear-gradient(140deg,var(--saff),var(--g-prem));display:grid;place-items:center;font-family:'Rozha One';font-size:40px;color:#241305}
+.phero h1{font-family:'Rozha One';font-weight:400;font-size:30px}
+.phero p{color:var(--tx2);font-size:14px}
+.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.pstats div{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center}
+.pstats b{font-family:'Rozha One';font-weight:400;font-size:30px;color:var(--saff);display:block}
+.pstats span{color:var(--tx2);font-size:12.5px}
+.badges{display:flex;gap:14px;flex-wrap:wrap}
+.badge{border:1px solid var(--line);border-radius:14px;padding:16px 20px;min-width:150px;background:var(--ink2)}
+.badge .bi{font-size:26px}
+.badge b{display:block;margin:6px 0 2px;font-size:14.5px}
+.badge small{color:var(--tx3);font-size:12px}
+.badge.lock{opacity:.38;filter:grayscale(.7)}
+
+#bnav{position:fixed;bottom:0;left:0;right:0;z-index:80;background:rgba(23,17,27,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+#bnav .in{max-width:560px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
+.nv{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--tx3);font-size:11px;font-weight:600;padding:6px 12px;border-radius:12px;transition:.22s;position:relative}
+.nv svg{width:22px;height:22px}
+.nv:hover{color:var(--tx)}
+.nv.on{color:var(--saff)}
+.nv.on::after{content:"";position:absolute;bottom:-2px;width:18px;height:3px;border-radius:9px;background:var(--saff)}
+.fab{width:58px;height:58px;margin-top:-30px;border-radius:50%;background:linear-gradient(140deg,var(--saff),#e2643c);display:grid;place-items:center;color:#241305;box-shadow:0 10px 26px rgba(240,161,60,.4);transition:.3s;border:4px solid var(--ink)}
+.fab:hover{transform:scale(1.08) rotate(-6deg)}
+.fab svg{width:24px;height:24px}
+@media(min-width:900px){#bnav{display:none}.tnav{display:flex}main{padding-bottom:60px}}
+
+#toasts{position:fixed;bottom:96px;left:50%;transform:translateX(-50%);z-index:150;display:flex;flex-direction:column;gap:8px;align-items:center}
+@media(min-width:900px){#toasts{bottom:30px}}
+.toast{background:var(--paper);color:#241a10;padding:12px 24px;border-radius:99px;font-weight:700;font-size:14px;box-shadow:var(--shadow);animation:tin .35s cubic-bezier(.2,1.2,.4,1),tout .3s 2.4s forwards;display:flex;gap:8px;align-items:center}
+.toast .ts{color:#c2571f}
+@keyframes tin{from{transform:translateY(20px) scale(.8);opacity:0}}
+@keyframes tout{to{transform:translateY(14px);opacity:0}}
+.burstp{position:fixed;z-index:160;pointer-events:none;font-size:15px;animation:bp .7s ease-out forwards}
+@keyframes bp{to{transform:translate(var(--bx),var(--by)) scale(.4) rotate(40deg);opacity:0}}
+.hide{display:none!important}
+@media(max-width:600px){.feat-info .ex{font-size:16px}.shelf{grid-auto-columns:150px}}
+</style>
+</head>
+<body>
+<div id="bgfx"></div>
+<div id="glyphs"></div>
+
+<div id="splash">
+  <div class="seal">क</div>
+  <div class="word"><span>क</span><span>थ</span><span>ा</span></div>
+  <small>दीर्घ कथाएँ · उपन्यास · महाकाव्य</small>
+</div>
+
+<header id="topbar">
+  <div class="wrap">
+    <div class="logo" data-act="nav" data-view="home">
+      <div class="seal">क</div>
+      <div><b>कथा</b><small>KATHA · EPICS & NOVELS</small></div>
+    </div>
+    <nav class="tnav">
+      <button data-act="nav" data-view="home" data-key="home">होम</button>
+      <button data-act="nav" data-view="explore" data-key="explore">खोजें</button>
+      <button data-act="nav" data-view="write" data-key="write">लिखें</button>
+      <button data-act="nav" data-view="library" data-key="library">संग्रह</button>
+      <button data-act="nav" data-view="profile" data-key="profile">प्रोफ़ाइल</button>
+    </nav>
+    <div class="sp"></div>
+    <button class="iconbtn" data-act="nav" data-view="explore" title="खोजें">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <button class="iconbtn" data-act="bell" title="सूचनाएँ">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      <span class="dot" id="bellDot"></span>
+    </button>
+    <div id="bellPanel">
+      <p><b>नई महागाथा</b> — “आधी रात का मुसाफ़िर” अब 12 अध्यायों में उपलब्ध ✦</p>
+      <p><b>साप्ताहिक चुनौती</b> — इस सप्ताह 3 घंटे पढ़ें और “दीर्घ पाठक” बैज जीतें।</p>
+      <p><b>लेखन प्रतियोगिता</b> — थीम: <b>महायात्रा</b>। न्यूनतम 10 अध्याय।</p>
+    </div>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<nav id="bnav"><div class="in">
+  <button class="nv" data-act="nav" data-view="home" data-key="home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>होम</span></button>
+  <button class="nv" data-act="nav" data-view="explore" data-key="explore">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span>खोजें</span></button>
+  <button class="fab" data-act="nav" data-view="write" title="लिखें">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5l4 4L7 21H3v-4z"/></svg></button>
+  <button class="nv" data-act="nav" data-view="library" data-key="library">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span>संग्रह</span></button>
+  <button class="nv" data-act="nav" data-view="profile" data-key="profile">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>प्रोफ़ाइल</span></button>
+</div></nav>
+
+<div id="reader"></div>
+<div id="toasts"></div>
+
+<script>
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function rng(seed){let t=seed>>>0;return function(){t+=0x6D2B79F5;let r=Math.imul(t^t>>>15,1|t);r^=r+Math.imul(r^r>>>7,61|r);return((r^r>>>14)>>>0)/4294967296}}
+function fmt(n){if(n>=1e7)return trim1(n/1e7)+' करोड़';if(n>=1e5)return trim1(n/1e5)+' लाख';if(n>=1e3)return trim1(n/1e3)+' हज़ार';return String(n)}
+function trim1(x){return(Math.round(x*10)/10).toString().replace(/\.0$/,'')}
+function timeAgo(ts){const d=Math.floor((Date.now()-ts)/864e5);if(d<1)return'आज';if(d===1)return'कल';if(d<7)return d+' दिन पहले';if(d<30)return Math.floor(d/7)+' सप्ताह पहले';return Math.floor(d/30)+' महीने पहले'}
+function fmtHours(mins){if(mins<60)return mins+' मिनट';const h=Math.floor(mins/60),m=mins%60;return m>0?h+' घंटे '+m+' मिनट':h+' घंटे'}
+
+/* ================= genres ================= */
+const GENRES=[
+ {id:'prem',name:'प्रेम'},{id:'rahasya',name:'रहस्य'},{id:'bhay',name:'भय'},
+ {id:'kavita',name:'कविता'},{id:'lok',name:'लोककथा'},{id:'samajik',name:'सामाजिक'}];
+const G=id=>GENRES.find(g=>g.id===id);
+const HUES={prem:8,rahasya:170,bhay:265,kavita:42,lok:118,samajik:208};
+
+/* ================= LONG-FORM STORY ENGINE ================= */
+// Each "paragraph block" is ~80-120 words. Chapters have 25-40 blocks = 2500-4000 words each.
+// 10-15 chapters = 30,000-50,000 words = 1-2 hours reading at 250 wpm Hindi.
+
+const NARRATIVE_BLOCKS={
+ prem:[
+  'उस शाम आसमान में बादलों का ऐसा जमावड़ा था जैसे बरसों की अनकही बातें एक साथ उमड़ आई हों। वह खिड़की के पास खड़ी थी, हाथ में चाय का कप जो कब का ठंडा हो चुका था, और नज़रें उस गली पर टिकी थीं जहाँ से वह हर रोज़ गुज़रता था। आज भी वही कदमों की आहट हुई, वही रुकना, वही ऊपर देखना — और वही मुस्कान जो बिना कुछ कहे सब कुछ कह जाती थी। दिल की धड़कन तेज़ हुई, साँसें थमीं, और समय जैसे उस एक पल में कैद हो गया।',
+  'प्यार कोई ऐसी चीज़ नहीं है जिसे शब्दों में बाँधा जा सके। यह तो उस खामोशी में है जो दो लोगों के बीच तब छा जाती है जब वे एक-दूसरे की मौजूदगी में पूरी तरह सुरक्षित महसूस करते हैं। उसने उसके हाथों को अपने हाथों में लिया — उँगलियाँ उँगलियों में फँसीं, हथेलियाँ हथेलियों से जुड़ीं — और उस स्पर्श में दस साल की दूरी मिट गई। बाहर बारिश शुरू हो चुकी थी, लेकिन अंदर एक ऐसी गर्माहट थी जो किसी मौसम की मोहताज नहीं थी।',
+  'वह जानती थी कि यह रास्ता आसान नहीं होगा। समाज की नज़रें, परिवार की उम्मीदें, और खुद के अंदर का डर — सब मिलकर एक ऐसी दीवार खड़ी कर रहे थे जिसे तोड़ना नामुमकिन लगता था। लेकिन फिर उसकी आँखों में देखा, और उस एक नज़र में इतना यक़ीन था कि सारी दीवारें काग़ज़ की लगने लगीं। "हम साथ हैं," उसने कहा — और उन तीन शब्दों में इतनी ताकत थी कि दुनिया भर के तूफ़ानों का सामना किया जा सकता था।',
+  'रात गहरी हो चुकी थी और फ़ोन की स्क्रीन पर उसका नाम चमक रहा था। एक लंबी साँस ली, कॉल उठाई, और दूसरी तरफ़ से उसकी आवाज़ आई — धीमी, थकी हुई, लेकिन सिर्फ़ उसके लिए। "आज बहुत याद आई," उसने कहा। और बस, इतना ही काफी था। हज़ारों किलोमीटर की दूरी, समय का अंतर, जीवन की व्यस्तताएँ — सब उस एक वाक्य के सामने बेमानी हो गए। वे घंटों बातें करते रहे, कभी हँसते, कभी चुप होते, कभी रोते — और सुबह होने तक दोनों जानते थे कि यह प्यार किसी भी दूरी से बड़ा है।',
+  'शादी के मंडप में जब उसने उसे पहली बार दुल्हन के रूप में देखा, तो लगा जैसे समय थम गया हो। लाल जोड़े में लिपटी, माथे पर सिंदूर, आँखों में आँसू और होठों पर मुस्कान — वह उस पल में पूरी दुनिया से ज्यादा खूबसूरत थी। फेरों के दौरान उसका हाथ उसके हाथ में था, और हर फेरे के साथ एक नया वादा जुड़ रहा था — न सिर्फ़ इस जन्म का, बल्कि हर जन्म का। अग्नि के सात फेरों ने दो अजनबियों को एक कर दिया, और उस रात के बाद उनकी कहानी "मैं" और "तुम" से "हम" बन गई।',
+  'बरसों बाद जब वे उसी पार्क की उसी बेंच पर बैठे, तो लगा जैसे कल की बात हो। बाल सफ़ेद हो चुके थे, चेहरों पर झुर्रियाँ आ गई थीं, लेकिन आँखों में वही चमक थी जो पचास साल पहले थी। उसने उसके हाथ पर अपना हाथ रखा और बोला, "तुम्हारे बिना ये ज़िंदगी अधूरी होती।" उसने मुस्कराकर कहा, "और तुम्हारे बिना ये ज़िंदगी होती ही नहीं।" उनके बीच की खामोशी अब शब्दों से ज्यादा बोलती थी — एक ऐसा प्रेम जो समय की आग में तपकर सोना बन चुका था।'
+ ],
+ rahasya:[
+  'पुरानी हवेली की दीवारों में एक अजीब सी नमी थी, जैसे वे बरसों के राज़ों को अपने अंदर समेटे हुए हों। हर कमरे में धूल की मोटी परत थी, लेकिन एक कमरे का दरवाज़ा हमेशा साफ़ रहता था — जैसे कोई रोज़ उसे खोलता और बंद करता हो। चौकीदार ने चेतावनी दी थी, "उस कमरे में मत जाइएगा, साहब।" लेकिन रहस्य का स्वभाव ही यही है कि वह जितना छिपाया जाए, उतना ही पुकारता है। रात के दो बजे, जब पूरा घर सो रहा था, उस कमरे से रोशनी की एक लकीर निकली — और फिर एक आवाज़ आई, धीमी लेकिन स्पष्ट: "आ गए?"',
+  'जाँच अधिकारी ने मेज़ पर रखी फ़ाइल खोली और उसमें से निकले काग़ज़ों को देखा। हर पन्ने पर एक नया सवाल खड़ा हो रहा था, और हर जवाब पिछले जवाब को झूठा साबित कर रहा था। गवाहों के बयान एक-दूसरे से मेल नहीं खा रहे थे, सबूतों की कड़ियाँ टूटी हुई थीं, और सबसे बड़ी बात — जिस व्यक्ति पर शक था, उसकी मौत तो तीन साल पहले हो चुकी थी। "यह मामला जितना सुलझता है, उतना ही उलझता जाता है," उसने अपने सहकर्मी से कहा। सहकर्मी ने सूखे होंठों से कहा, "शायद यह मामला सुलझने के लिए बना ही नहीं है।"',
+  'अख़बार की पुरानी कतरनों में वह ख़बर दबी हुई थी — 1987 की एक सर्द रात, एक ट्रेन हादसा, 47 मौतें, और एक लापता डिब्बा जिसका कभी पता नहीं चला। उसने कतरन को ध्यान से पढ़ा और उसमें एक नाम देखा जो उसे जाना-पहचाना लगा। अपने दादा का नाम। दादा कभी उस हादसे का ज़िक्र नहीं करते थे, लेकिन उनकी आँखों में हमेशा एक ऐसा डर रहता था जिसकी वजह कोई नहीं समझ पाया था। अब, तीस साल बाद, वह डिब्बा मिल गया था — एक सुनसान स्टेशन के यार्ड में, जंग खाया हुआ, लेकिन अंदर से बिल्कुल वैसा ही जैसे कल ही वहाँ से गुज़री हो।',
+  'हर रात ठीक 3:17 पर फ़ोन बजता था। नंबर अनजान, कॉल करने वाला अज्ञात। पहले हफ्ते उसने उठाया — दूसरी तरफ़ सिर्फ़ साँसों की आवाज़ थी। दूसरे हफ्ते उसने उठाना बंद कर दिया — लेकिन फ़ोन बजता रहा। तीसरे हफ्ते उसने पुलिस में शिकायत की — पुलिस ने नंबर ट्रैक किया, लेकिन वह नंबर किसी फ़ोन से जुड़ा ही नहीं था। चौथे हफ्ते, 3:17 पर फ़ोन बजा, और इस बार जब उसने उठाया, तो अपनी ही आवाज़ सुनी — "भाग जाओ। अभी।" लाइन कट गई। उसने पीछे मुड़कर देखा — और जो दिखा, उसने उसकी रूह कंपा दी।',
+  'गाँव के बुज़ुर्ग कहते थे कि उस कुएँ में पानी नहीं, यादें हैं। जो भी उसमें झांकता, उसे अपना चेहरा नहीं, किसी और का चेहरा दिखता — और वह चेहरा हमेशा रो रहा होता था। उसने हँसकर इसे अंधविश्वास कहा और कुएँ में झांका। पानी स्थिर था, काला, गहरा। और उसमें उसका चेहरा नहीं था — एक ऐसे इंसान का चेहरा था जिसे उसने कभी नहीं देखा था, लेकिन जिसकी आँखों में इतना दर्द था कि उसका अपना दिल बैठ गया। उस रात उसे सपना आया — उसी चेहरे का, उसी कुएँ का, और एक आवाज़ जो कह रही थी: "मुझे बाहर निकालो।"'
+ ],
+ bhay:[
+  'कमरे का तापमान अचानक गिर गया। गर्मियों की रात थी, पंखा चल रहा था, लेकिन अचानक इतनी ठंड पड़ी कि साँसें भाप बनने लगीं। उसने रज़ाई ओढ़ी और सोचने लगा कि शायद एसी खराब हो गया है। लेकिन तभी उसे एहसास हुआ — कमरे में एसी था ही नहीं। ठंड किसी मशीन से नहीं, किसी मौजूदगी से आ रही थी। अलमारी का दरवाज़ा धीरे से खुला, और अंदर से एक आवाज़ आई — उसकी बेटी की आवाज़, जो तीन साल पहले गुज़र चुकी थी: "पापा, मुझे ठंड लग रही है।"',
+  'आईने में उसका प्रतिबिंब हमेशा एक पल देर से हिलता था। पहले उसे लगा कि यह वहम है, थकान का असर है। लेकिन फिर उसने ध्यान देना शुरू किया — जब वह दाहिना हाथ उठाता, प्रतिबिंब बायाँ हाथ उठाता, लेकिन हमेशा आधा सेकंड बाद। एक रात उसने आईने के सामने खड़े होकर अचानक पीछे मुड़कर देखा — प्रतिबिंब नहीं मुड़ा। वह आईने में खड़ा रहा, मुस्कराता हुआ, और बोला: "अब मेरी बारी है।" उस रात के बाद, आईने में जो दिखता है, वह वह नहीं है।',
+  'होटल के कमरा नंबर 414 में पिछले बीस सालों में सात लोग रह चुके थे। सभी ने एक ही शिकायत की — रात को कोई उनके बिस्तर के नीचे से साँस लेता है। होटल मैनेजर ने हर बार कमरा बदल दिया, लेकिन नए कमरे में भी वही आवाज़ आती रही। आठवें मेहमान ने शिकायत नहीं की — क्योंकि सुबह कमरा खाली मिला, बिस्तर बना हुआ था, और तकिए के नीचे एक पर्ची थी: "अब मैं यहीं रहूँगा।" मेहमान का कभी पता नहीं चला। कमरा 414 अब हमेशा के लिए बंद कर दिया गया है।',
+  'बचपन में दादी कहती थीं, "रात को किसी के बुलाने पर नाम लेकर जवाब मत देना।" उसने इसे कहानी समझा और भूल गया। तीस साल बाद, एक सुनसान सड़क पर गाड़ी खराब हुई, और अँधेरे में से किसी ने उसका नाम पुकारा — उसकी माँ की आवाज़ में, जो दस साल पहले गुज़र चुकी थीं। उसने जवाब देने के लिए मुँह खोला — और तभी दादी की बात याद आई। उसने मुँह बंद किया, गाड़ी में बैठकर दरवाज़ा लॉक किया, और सुबह होने का इंतज़ार किया। सुबह जब रोशनी हुई, तो गाड़ी के चारों ओर सैकड़ों पैरों के निशान थे — जो गाड़ी की तरफ़ आए थे, लेकिन वापस नहीं गए।',
+  'वह लिफ़्ट में अकेला था जब बत्ती गुल हुई। मोबाइल की टॉर्च जलाई — और देखा कि लिफ़्ट में वह अकेला नहीं है। कोने में कोई खड़ा है, दीवार की तरफ़ मुँह किए, बिल्कुल स्थिर। उसने पूछा, "आप ठीक हैं?" कोई जवाब नहीं। लिफ़्ट फिर चली, बत्ती आई — और कोना खाली था। लेकिन जब उसने लिफ़्ट से बाहर कदम रखा, तो उसके कंधे पर किसी का हाथ महसूस हुआ — ठंडा, भारी, और एक आवाज़ कान में फुसफुसाई: "तुमने मुझे देख लिया। अब मैं तुम्हें देखता रहूँगा।"'
+ ],
+ kavita:[
+  'शब्दों को पिरोना सीखो जैसे मालिन फूलों को पिरोती है — हर शब्द एक फूल है, हर वाक्य एक माला, और हर कविता एक ऐसा हार जो किसी के गले में पहनाया जाए तो उसकी ज़िंदगी महक उठे। कविता लिखना कोई हुनर नहीं, एक ज़रूरत है — जैसे साँस लेना, जैसे रोना, जैसे हँसना। जब दिल इतना भर जाए कि शब्द छोटे पड़ जाएँ, तब कविता जन्म लेती है। और जब कविता जन्म लेती है, तो वह सिर्फ़ तुम्हारी नहीं रहती — वह हर उस इंसान की हो जाती है जिसने कभी वही दर्द महसूस किया है।',
+  'चाँद से पूछा — तू अकेला होकर भी इतना पूरा कैसे है? चाँद ने कहा — क्योंकि मैं जानता हूँ कि अँधेरा मेरा दुश्मन नहीं, मेरा कैनवास है। तारों से पूछा — तुम इतनी दूर होकर भी इतने क़रीब कैसे हो? तारों ने कहा — क्योंकि रोशनी को दूरी की परवाह नहीं होती। हवा से पूछा — तू दिखाई नहीं देती, फिर भी सबको महसूस होती है? हवा ने कहा — क्योंकि असली ताकत दिखने में नहीं, छूने में है। और खुद से पूछा — तू इतना टूटकर भी इतना जुड़ा कैसे है? दिल ने कहा — क्योंकि टूटना ही जुड़ने का दूसरा नाम है।',
+  'ज़िंदगी एक किताब है जिसे हम लिख भी रहे हैं और पढ़ भी रहे हैं — एक साथ। कुछ पन्ने ख़ुशियों से भरे हैं, कुछ आँसुओं से, कुछ खाली हैं, और कुछ ऐसे हैं जिन्हें हमने जान-बूझकर फाड़ दिया है। लेकिन हर पन्ना ज़रूरी है — खाली पन्ने इसलिए कि उन पर नई कहानी लिखी जा सके, फटे पन्ने इसलिए कि उनकी जगह नए पन्ने आ सकें, और आँसुओं वाले पन्ने इसलिए कि उनके बिना ख़ुशियों वाले पन्नों का कोई मतलब नहीं। इस किताब को पूरी तरह पढ़ने का नाम ही ज़िंदगी है — और इसे लिखते रहने का नाम ही उम्मीद है।',
+  'वक़्त की रेत पर उँगली से नाम लिखा — लहरें आईं और मिटा गईं। फिर से लिखा — हवा आई और उड़ा ले गई। तीसरी बार लिखा — बारिश आई और धो ले गई। चौथी बार लिखा — और इस बार रेत ने कहा, "मुझ पर नहीं, अपने दिल पर लिखो। वहाँ न लहरें आती हैं, न हवा, न बारिश। वहाँ जो लिखा जाता है, वह हमेशा रहता है।" उस दिन से मैंने रेत पर लिखना छोड़ दिया — और दिल पर लिखना शुरू किया। और जो वहाँ लिखा गया, वह कभी नहीं मिटा।'
+ ],
+ lok:[
+  'गाँव के सबसे पुराने पीपल के पेड़ के नीचे एक चबूतरा था, और चबूतरे पर एक मूर्ति — न किसी देवी की, न किसी देवता की, बल्कि एक ऐसी औरत की जिसका नाम किसी को याद नहीं था। बुज़ुर्ग कहते थे कि वह औरत गाँव की पहली दाई थी, जिसने सैकड़ों बच्चों को जन्म दिया था और अपनी जान देकर गाँव को एक महामारी से बचाया था। हर पूर्णिमा को गाँव की महिलाएँ वहाँ दीया जलाती थीं, और कहती थीं — "जो माँ सबकी है, उसका नाम भले भूल जाएँ, लेकिन उसका ऋण कभी नहीं भूलेंगे।" और उस रात, पीपल की शाखाएँ ऐसे हिलती थीं जैसे कोई आशीर्वाद दे रहा हो।',
+  'नदी के उस पार एक गाँव था जिसे "भूल गया गाँव" कहा जाता था। कहते थे कि वहाँ जाने वाला वापस नहीं आता — न इसलिए कि वह मर जाता है, बल्कि इसलिए कि वह वापस आना भूल जाता है। एक युवक ने हिम्मत की और नदी पार की। गाँव में सब कुछ सामान्य था — लोग काम कर रहे थे, बच्चे खेल रहे थे, बुज़ुर्ग कहानियाँ सुना रहे थे। लेकिन किसी ने उससे नहीं पूछा कि वह कौन है या क्यों आया है। तीन दिन बाद जब वह वापस लौटा, तो उसे अपना नाम याद नहीं था, अपना घर याद नहीं था, अपनी ज़िंदगी याद नहीं थी। उसे सिर्फ़ वह गाँव याद था — और वह वहीं लौट गया, हमेशा के लिए।',
+  'मेले में एक बुढ़िया आई थी जिसके पास न सामान था, न पैसा, न कोई साथी। वह सिर्फ़ एक खाली टोकरी लेकर बैठी थी और आने-जाने वालों से कहती थी, "अपना बोझ इसमें डाल दो।" लोग हँसते, कुछ तरस खाते, कुछ नज़रअंदाज़ करते। लेकिन एक बच्चे ने अपनी टूटी हुई खिलौना कार उसमें डाल दी — और बुढ़िया ने मुस्कराकर उसे एक नई खिलौना कार दे दी। एक औरत ने अपने आँसू डाले — और बुढ़िया ने उसे एक मुस्कान दी। एक बुज़ुर्ग ने अपनी यादें डालीं — और बुढ़िया ने उसे शांति दी। शाम होते-होते टोकरी भर गई थी — और बुढ़िया गायब हो गई। लेकिन मेले में आए हर इंसान के चेहरे पर एक अजीब सा सुकून था।',
+  'हर दीवाली पर गाँव के मंदिर में एक दीया जलता था जो कभी नहीं बुझता था — न बारिश से, न हवा से, न तेल ख़त्म होने से। पुजारी कहते थे कि यह दीया किसी इंसान ने नहीं, बल्कि उस लड़की ने जलाया था जो सौ साल पहले अकाल में मर गई थी — लेकिन मरते वक़त उसने कहा था, "मेरा दीया कभी नहीं बुझेगा, क्योंकि यह तेल से नहीं, उम्मीद से जलता है।" और सौ सालों में, न जाने कितनी बार तूफ़ान आए, कितनी बार बाढ़ आई, कितनी बार अँधेरा छाया — लेकिन वह दीया जलता रहा। और गाँव वाले कहते हैं — जब तक यह दीया जलता है, गाँव पर कोई आँच नहीं आ सकती।'
+ ],
+ samajik:[
+  'गली के नुक्कड़ पर चाय की दुकान थी, और उस दुकान पर हर शाम एक बहस होती थी — कभी राजनीति पर, कभी धर्म पर, कभी क्रिकेट पर, और कभी ज़िंदगी पर। उस दिन बहस शिक्षा पर थी। एक बुज़ुर्ग ने कहा, "हमारे ज़माने में गुरु का सम्मान होता था।" एक युवक ने कहा, "आपके ज़माने में हर किसी को पढ़ने का मौका भी नहीं मिलता था।" दुकानदार ने चाय छानते हुए कहा, "दोनों सही हैं, और दोनों गलत हैं। सवाल यह नहीं है कि कौन-सा ज़माना बेहतर था — सवाल यह है कि क्या हम आज बेहतर बना रहे हैं?" और उस एक वाक्य ने बहस को ख़ामोशी में बदल दिया — एक ऐसी ख़ामोशी जो हज़ार शब्दों से ज्यादा बोलती थी।',
+  'फ़ैक्ट्री बंद होने वाली थी, और 300 मज़दूरों की रोज़ी-रोटी ख़तरे में थी। मालिक ने कहा, "नुक़सान हो रहा है, मजबूरी है।" मज़दूरों ने कहा, "हमारी मजबूरी आपसे बड़ी है।" सरकार ने कहा, "हम देख रहे हैं।" और देखते-देखते तीन महीने बीत गए। तभी एक मज़दूर की बेटी, जो इंजीनियरिंग की पढ़ाई कर रही थी, ने फ़ैक्ट्री का दौरा किया और एक योजना बनाई — पुरानी मशीनों को नए तरीके से इस्तेमाल करने की, नए बाज़ार खोजने की, और मज़दूरों को शेयरधारक बनाने की। मालिक ने हँसकर कहा, "एक लड़की क्या जाने?" लेकिन जब योजना काम कर गई और फ़ैक्ट्री बच गई, तो उसी मालिक ने उस लड़की को फ़ैक्ट्री का मैनेजर बना दिया।',
+  'चुनाव का मौसम था और हर पार्टी ने वादों की झड़ी लगा रखी थी। पोस्टरों पर चेहरे मुस्करा रहे थे, भाषणों में उम्मीदें जगमगा रही थीं, और जनता — जनता वही थी जो हर बार उम्मीद करती थी और हर बार निराश होती थी। लेकिन इस बार कुछ अलग था। एक उम्मीदवार ने न पोस्टर लगाए, न भाषण दिए। वह गली-गली गया, घर-घर गया, और सिर्फ़ सुना। लोगों की समस्याएँ सुनीं, उनके दर्द सुने, उनकी कहानियाँ सुनीं। और जब चुनाव का दिन आया, तो लोगों ने उसे चुना — न इसलिए कि उसने वादे किए थे, बल्कि इसलिए कि उसने उन्हें सुना था। क्योंकि लोकतंत्र में सबसे बड़ी ताकत बोलने की नहीं, सुनने की है।',
+  'शहर की चकाचौंध में वह गाँव से आई लड़की खो सी गई थी। नई नौकरी, नया अपार्टमेंट, नए लोग — सब कुछ नया था, लेकिन कुछ अपना नहीं था। ऑफ़िस में उसे "देसी" कहा जाता था, पड़ोस में कोई उससे बात नहीं करता था, और फ़ोन पर माँ की आवाज़ सुनकर वह रो पड़ती थी। लेकिन फिर उसने अपने अपार्टमेंट की छत पर एक छोटा सा बगीचा बनाया — तुलसी, मिर्च, टमाटर, और धनिया। और उस बगीचे ने उसे अपनी जड़ों से जोड़ दिया। पड़ोस की एक बुज़ुर्ग ने उससे टमाटर माँगे, और बदले में उसे अचार का रेसिपी दी। एक बच्चे ने तुलसी को छुआ और कहा, "दीदी, यह तो हमारे गाँव जैसी खुशबू है।" और उस दिन, शहर थोड़ा सा गाँव बन गया।'
+ ]
+};
+
+const CHAPTER_TITLES={
+ prem:['पहली मुलाक़ात','अनकहे शब्द','दूरी और नज़दीकी','बारिश का वादा','टूटे तारे','जुड़ी उँगलियाँ','खामोश प्रेम','सात फेरे','बिछड़ना','मिलन','उम्र भर का साथ','आख़िरी ख़त'],
+ rahasya:['सुनसान सड़क','पुरानी हवेली','बंद दरवाज़ा','अनजान नंबर','गायब डिब्बा','तीसरी मंज़िल','काला कुआँ','आख़िरी गवाह','झूठी गवाही','सच्चाई का पन्ना','अधूरी फ़ाइल','राज़ खुला'],
+ bhay:['पहली रात','आईने का साया','कमरा नंबर 414','दादी की चेतावनी','लिफ़्ट','खाली पलंग','बंद अलमारी','सीढ़ियों की आवाज़','खिड़की का चेहरा','अँधेरे का हाथ','वापसी नहीं','हमेशा के लिए'],
+ kavita:['रेत के शब्द','चाँद से संवाद','टूटी हुई कविता','हवा का गीत','आँसुओं की स्याही','खाली पन्ने','दिल की डायरी','समय की रेत','रोशनी का कर्ज़','अधूरी ग़ज़ल','शब्दों का घर','अंतिम पंक्ति'],
+ lok:['पीपल की कहानी','भूल गया गाँव','मेले की बुढ़िया','नदी का वरदान','दीये की लौ','दादी का संदूक','जुगनू की बोतल','पुराना कुआँ','गाँव की कहावत','वरदान और श्राप','लौटती यादें','हमेशा की कहानी'],
+ samajik:['नुक्कड़ की बहस','फ़ैक्ट्री की बेटी','चुनाव का मौसम','शहर की छत','स्कूल की घंटी','अस्पताल का बिस्तर','बस स्टॉप','ऑफ़िस की लिफ़्ट','गाँव का स्कूल','शहर की भीड़','उम्मीद का दीया','नई सुबह']
+};
+
+function genLongChapter(r,g,chIdx,totalCh){
+ const blocks=NARRATIVE_BLOCKS[g]||NARRATIVE_BLOCKS.samajik;
+ const nBlocks=25+Math.floor(r()*16); // 25-40 blocks per chapter
+ let paras=[];
+ for(let i=0;i<nBlocks;i++){
+  const bi=Math.floor(r()*blocks.length);
+  let block=blocks[bi];
+  // Add transitional sentences between blocks for coherence
+  if(i>0&&i<nBlocks-1){
+   const transitions=[
+    'वक़्त गुज़रता गया, और हालात बदलते गए।','लेकिन ज़िंदगी इतनी आसान कहाँ होती है।','उस पल के बाद सब कुछ बदल गया।','दिन हफ़्तों में बदले, हफ़्ते महीनों में।','एक नया मोड़ आया, जिसकी किसी ने उम्मीद नहीं की थी।','खामोशी गहरी हुई, और सवाल बढ़ते गए।','फिर एक सुबह आई, जो बाकी सुबहों से अलग थी।','उस रात के बाद, कुछ भी पहले जैसा नहीं रहा।','ज़िंदगी ने एक और इम्तिहान लिया।','और तब, जब सब कुछ ख़त्म लग रहा था, एक नई शुरुआत हुई।'
+   ];
+   const ti=Math.floor(r()*transitions.length);
+   block=transitions[ti]+' '+block;
+  }
+  paras.push(block);
+ }
+ return paras.join('\n\n');
+}
+
+function genLongStory(id,seed){
+ const r=rng(seed);
+ const g=GENRES[Math.floor(r()*GENRES.length)].id;
+ const T1=['आधी रात का','पीली धूप का','पुरानी हवेली का','बंद दरवाज़े का','खामोश झील का','लाल साड़ी का','टूटी सीढ़ी का','सूखे कुएँ का','चाँदनी रात का','बाज़ार वाला','दादी का','परछाई वाला','कोहरे वाला','चिट्ठी वाला','रेलगाड़ी वाला','नीम के पेड़ वाला','सुनसान गली का','सावन की रात वाला','पीतल वाला','अनजान शहर का','वक्त का','यादों का','सपनों का','ख़ामोशी का','रोशनी का'];
+ const T2=['मुसाफ़िर','रहस्य','पहरा','सपना','मेला','क़िस्सा','गीत','साया','दरवाज़ा','ख़त','फूल','दीया','किनारा','सिलसिला','अफ़साना','पड़ोसी','बगीचा','खज़ाना','आइना','सेहरा','सफ़र','कहानी','यात्रा','धुन','इंतज़ार'];
+ const FIRST=['आरव','तारा','विक्रम','मीरा','नीरज','सुधा','कबीर','यशोदा','फ़रहान','गौरी','मानव','सावित्री','रघु','नलिनी','समर','तुलसी','इरा','देवांश','अम्बिका','हरि','प्रिया','अमित','रेखा','सुरेश','कमला'];
+ const LAST=['शर्मा','जोशी','पाठक','भंडारी','रहीम','देवी','सक्सेना','वर्मन','ख़ान','आई','देशपांडे','सिंह','मेहता','बानो','त्रिपाठी','चौहान','गीता','उपाध्याय','मिश्र','अग्रवाल'];
+ const title=T1[Math.floor(r()*T1.length)]+' '+T2[Math.floor(r()*T2.length)];
+ const author=FIRST[Math.floor(r()*FIRST.length)]+' '+LAST[Math.floor(r()*LAST.length)];
+ const nCh=10+Math.floor(r()*6); // 10-15 chapters
+ const chTitles=CHAPTER_TITLES[g]||CHAPTER_TITLES.samajik;
+ const chapters=[];
+ for(let c=0;c<nCh;c++){
+  const ct=chTitles[c%chTitles.length]+(c>=chTitles.length?' — भाग '+(Math.floor(c/chTitles.length)+1):'');
+  const body=genLongChapter(rng(seed*97+c*31+7),g,c,nCh);
+  chapters.push({t:ct,b:body});
+ }
+ const totalWords=chapters.reduce((a,c)=>a+c.b.length,0);
+ const reads=5000+Math.floor(Math.pow(r(),2)*800000);
+ return{id,title,author,genre:g,reads,likes:Math.floor(reads*(0.03+r()*0.06)),
+  ts:Date.now()-Math.floor(r()*365)*864e5,chapters,
+  excerpt:chapters[0].b.split('\n\n')[0].slice(0,200)+'…',
+  hue:HUES[g]+Math.floor(r()*18)-9,pat:id%4,glyph:title[0],totalWords};
+}
+
+// Generate 988 long-form stories
+const ALL=[];
+for(let i=0;i<988;i++){
+ ALL.push(genLongStory('g'+i,i*7919+13));
+}
+
+// Curated long-form stories (expanded versions)
+const CURATED_LONG=[
+ {id:'c1',title:'आधी रात का मुसाफ़िर — पूर्ण संस्करण',author:'विक्रम सक्सेना',genre:'rahasya',reads:487000,likes:31200,ts:Date.now()-4*864e5,
+  excerpt:'सर्दियों की रात थी और राजमार्ग पर कोहरा इस तरह छाया था जैसे किसी ने दूध उबालकर सड़क पर बिखेर दिया हो। यह कहानी एक ऐसे मुसाफ़िर की है जो एक सुनसान सराय में ठहरता है — और पाता है कि वह सराय उतनी खाली नहीं है जितनी दिखती है…',
+  hue:HUES.rahasya,pat:0,glyph:'आ',
+  chapters:Array.from({length:12},(_,i)=>({
+   t:CHAPTER_TITLES.rahasya[i%12]+(i>=12?' — भाग 2':''),
+   b:genLongChapter(rng(1001+i*31),'rahasya',i,12)
+  }))},
+ {id:'c2',title:'चिट्ठियों वाला घर — महागाथा',author:'मीरा जोशी',genre:'samajik',reads:356000,likes:24800,ts:Date.now()-9*864e5,
+  excerpt:'दादा का मकान नीलाम होने वाला था। लेकिन उस घर की दीवारों में हज़ारों चिट्ठियाँ छिपी थीं — और हर चिट्ठी एक ऐसी कहानी बयाँ करती थी जो इतिहास की किताबों में कभी नहीं लिखी गई…',
+  hue:HUES.samajik,pat:1,glyph:'च',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.samajik[i%12],
+   b:genLongChapter(rng(2002+i*31),'samajik',i,10)
+  }))},
+ {id:'c3',title:'पीपल की परी — लोकगाथा संग्रह',author:'कमला देवी',genre:'lok',reads:298000,likes:20100,ts:Date.now()-16*864e5,
+  excerpt:'गाँव के सबसे पुराने पीपल के पेड़ के नीचे एक ऐसी कहानी दबी थी जो सैकड़ों सालों से सुनाई जाती आ रही थी — लेकिन इस बार, कहानी ने खुद को नए सिरे से बयाँ किया…',
+  hue:HUES.lok,pat:2,glyph:'प',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.lok[i%12],
+   b:genLongChapter(rng(3003+i*31),'lok',i,10)
+  }))},
+ {id:'c4',title:'बारिश की पहली गंध — प्रेम गाथा',author:'आरव मल्होत्रा',genre:'prem',reads:612000,likes:48300,ts:Date.now()-2*864e5,
+  excerpt:'जून की आख़िरी उमस में जब अमलतास पर पीले फूलों की बूँदें टपक रही थीं, तब पहली बार उसने उसे देखा। यह कहानी दो दिलों की है जो बारिश की हर बौछार के साथ और क़रीब आए…',
+  hue:HUES.prem,pat:3,glyph:'ब',
+  chapters:Array.from({length:14},(_,i)=>({
+   t:CHAPTER_TITLES.prem[i%12]+(i>=12?' — उत्तरार्ध':''),
+   b:genLongChapter(rng(4004+i*31),'prem',i,14)
+  }))},
+ {id:'c5',title:'ग्यारहवाँ कमरा — भय कथा',author:'नीरज पाठक',genre:'bhay',reads:423000,likes:27600,ts:Date.now()-7*864e5,
+  excerpt:'होटल का ग्यारहवाँ कमरा बीस साल से बंद था। लेकिन जब एक नया मेहमान वहाँ ठहरा, तो उसे पता चला कि वह कमरा खाली नहीं है — और जो अंदर है, वह बाहर आना चाहता है…',
+  hue:HUES.bhay,pat:0,glyph:'ग',
+  chapters:Array.from({length:12},(_,i)=>({
+   t:CHAPTER_TITLES.bhay[i%12],
+   b:genLongChapter(rng(5005+i*31),'bhay',i,12)
+  }))},
+ {id:'c6',title:'दो कप चाय — प्रेम उपन्यास',author:'तारा भंडारी',genre:'prem',reads:189000,likes:15400,ts:Date.now()-21*864e5,
+  excerpt:'शादी के जोड़-तोड़ के बीच छत पर दो अजनबी मिले — और दो कप चाय ने एक ऐसी कहानी शुरू की जो दस साल तक चली…',
+  hue:HUES.prem,pat:1,glyph:'द',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.prem[i%12],
+   b:genLongChapter(rng(6006+i*31),'prem',i,10)
+  }))},
+ {id:'c7',title:'मछुआरे का सपना — सामाजिक उपन्यास',author:'अब्दुल रहीम',genre:'samajik',reads:145000,likes:9800,ts:Date.now()-33*864e5,
+  excerpt:'समुद्र के किनारे एक मछुआरे के बेटे ने सपना देखा — न मछली पकड़ने का, बल्कि समुद्र को बचाने का। यह कहानी उस सपने की है…',
+  hue:HUES.samajik,pat:2,glyph:'म',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.samajik[i%12],
+   b:genLongChapter(rng(7007+i*31),'samajik',i,10)
+  }))},
+ {id:'c8',title:'जुगनू चुनने वाली — लोक कथा संग्रह',author:'कमला देवी',genre:'lok',reads:231000,likes:18900,ts:Date.now()-12*864e5,
+  excerpt:'हर अमावस की रात एक बुढ़िया जुगनू चुनती थी। लोग हँसते थे — लेकिन जब बाँध टूटा, तो वही जुगनू गाँव की रोशनी बने…',
+  hue:HUES.lok,pat:3,glyph:'ज',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.lok[i%12],
+   b:genLongChapter(rng(8008+i*31),'lok',i,10)
+  }))},
+ {id:'c9',title:'काला कुआँ — भय उपन्यास',author:'नीरज पाठक',genre:'bhay',reads:267000,likes:19700,ts:Date.now()-27*864e5,
+  excerpt:'हवेली के पीछे का कुआँ सौ साल से बंद था। लेकिन जब सिल हटाई गई, तो पानी में किसी और का चेहरा दिखा — और उस चेहरे ने मुस्कराकर कहा, "आ गए?"',
+  hue:HUES.bhay,pat:0,glyph:'क',
+  chapters:Array.from({length:12},(_,i)=>({
+   t:CHAPTER_TITLES.bhay[i%12],
+   b:genLongChapter(rng(9009+i*31),'bhay',i,12)
+  }))},
+ {id:'c10',title:'रेत की कविताएँ — काव्य संग्रह',author:'सुधा शर्मा',genre:'kavita',reads:98000,likes:12600,ts:Date.now()-5*864e5,
+  excerpt:'रेत से पूछा — तू थकती नहीं? रेत ने कहा — मुझे याद है, मैं कभी पहाड़ थी। बिखरना मेरी हार नहीं, मेरी यात्रा है।',
+  hue:HUES.kavita,pat:1,glyph:'र',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.kavita[i%12],
+   b:genLongChapter(rng(10010+i*31),'kavita',i,10)
+  }))},
+ {id:'c11',title:'तीसरी मंज़िल की खिड़की — रहस्य उपन्यास',author:'विक्रम सक्सेना',genre:'rahasya',reads:204000,likes:16200,ts:Date.now()-18*864e5,
+  excerpt:'पुरानी लाइब्रेरी की तीसरी मंज़िल पर एक खिड़की थी, जहाँ हर रात रोशनी जलती थी। मसला ये था कि तीसरी मंज़िल को बीस साल पहले आग लग चुकी थी…',
+  hue:HUES.rahasya,pat:2,glyph:'त',
+  chapters:Array.from({length:12},(_,i)=>({
+   t:CHAPTER_TITLES.rahasya[i%12],
+   b:genLongChapter(rng(11011+i*31),'rahasya',i,12)
+  }))},
+ {id:'c12',title:'अधूरी तस्वीर — सामाजिक गाथा',author:'मीरा जोशी',genre:'samajik',reads:176000,likes:13100,ts:Date.now()-40*864e5,
+  excerpt:'दादा की अलमारी में एक अधूरी तस्वीर मिली — फ़ोटो में दादा हैं, पर उनके बग़ल की जगह कटी हुई है। दादी ने कहा, "वो हिस्सा मैंने फाड़ा था।"',
+  hue:HUES.samajik,pat:3,glyph:'अ',
+  chapters:Array.from({length:10},(_,i)=>({
+   t:CHAPTER_TITLES.samajik[i%12],
+   b:genLongChapter(rng(12012+i*31),'samajik',i,10)
+  }))}
+];
+
+CURATED_LONG.forEach(s=>ALL.unshift(s));
+const byId=id=>ALL.find(s=>s.id===id);
+const minsOf=s=>Math.max(5,Math.round((s.totalWords||s.chapters.reduce((a,c)=>a+c.b.length,0))/450));
+const AUTHORS=[...new Map(ALL.map(s=>[s.author,s.author])).keys()].sort();
+
+/* ================= state ================= */
+let state={view:'home',expQ:'',expG:'all',expSort:'hot',expShown:36,libTab:'saved',
+ likes:new Set(),saves:[],hist:{},mine:[],finished:new Set(),rset:{fs:19,th:'sepia',lh:'2.05',autoScroll:false}};
+try{const j=JSON.parse(localStorage.getItem('katha_v2')||'{}');
+ if(j.likes)state.likes=new Set(j.likes);if(j.saves)state.saves=j.saves;if(j.hist)state.hist=j.hist;
+ if(j.mine)state.mine=j.mine;if(j.finished)state.finished=new Set(j.finished);if(j.rset)state.rset={...state.rset,...j.rset};
+ j.mine&&j.mine.forEach(m=>{if(!byId(m.id))ALL.unshift(m)});}catch(e){}
+function persist(){try{localStorage.setItem('katha_v2',JSON.stringify({likes:[...state.likes],saves:state.saves,hist:state.hist,mine:state.mine,finished:[...state.finished],rset:state.rset}))}catch(e){}}
+
+/* ================= components ================= */
+function coverHTML(s,extra=''){const h=s.hue;return`<div class="cover pat-${s.pat} ${extra}" style="background:linear-gradient(155deg,hsl(${h},42%,15%),hsl(${h+16},52%,30%))"><span class="band"></span><span class="glyph" style="color:hsl(${h+30},70%,78%)">${s.glyph||s.title[0]}</span><span class="shine"></span></div>`}
+function cardHTML(s,anim=true){const g=G(s.genre),m=minsOf(s);return`<article class="card ${anim?'rv':''}" data-act="detail" data-id="${s.id}">
+ ${coverHTML(s,'')}<div style="position:relative">${anim?'<span class="cta" style="position:absolute;left:0;right:0;bottom:100%;padding:6px;text-align:center;background:rgba(20,12,8,.8);color:var(--saff2);font-weight:700;font-size:12px;letter-spacing:.2em;opacity:0;transition:.3s" class="hovercta">पढ़ें ▸</span>':''}</div>
+ <span class="gtag g-${s.genre}">${g.name}</span><h3>${esc(s.title)}</h3><p class="au">${esc(s.author)}</p>
+ <div class="cm"><span>👁 ${fmt(s.reads)}</span><span>♥ ${fmt(s.likes)}</span><span>⏱ ${fmtHours(m)}</span><span>📖 ${s.chapters.length} अध्याय</span></div></article>`}
+function shelfHTML(list,anim=true){return`<div class="shelf">${list.map(s=>cardHTML(s,anim)).join('')}</div>`}
+function secHead(ey,t,link){return`<div class="shead rv"><div><div class="ey">✦ ${ey}</div><h2>${t}</h2></div>${link?`<a href="javascript:void(0)" data-act="${link.act||'nav'}" data-view="${link.view||''}" data-genre="${link.genre||''}">${link.txt||'सभी देखें'} →</a>`:''}</div>`}
+function lrowHTML(s,opts={}){const m=minsOf(s);return`<div class="lrow" data-act="detail" data-id="${s.id}">
+ <div class="cover pat-${s.pat}" style="background:linear-gradient(155deg,hsl(${s.hue},42%,15%),hsl(${s.hue+16},52%,30%));width:62px;height:84px;font-size:30px"><span class="glyph" style="color:hsl(${s.hue+30},70%,78%)">${s.glyph}</span></div>
+ <div class="li"><h3>${esc(s.title)}</h3><small>${esc(s.author)} · ${G(s.genre).name} · ${fmtHours(m)} · ${s.chapters.length} अध्याय</small>
+ ${opts.prog!==undefined?`<div class="pbar"><i style="width:${opts.prog}%"></i></div><small>${opts.prog}% पढ़ा गया · ${opts.lab||''}</small>`:''}</div>
+ ${opts.rm?`<button class="rm" data-act="${opts.rm}" data-id="${s.id}" title="हटाएँ">✕</button>`:''}
+ <button class="btn btn-p btn-sm" data-act="read" data-id="${s.id}" style="flex:none">पढ़ें</button></div>`}
+
+/* ================= views ================= */
+function renderHome(){
+ const feat=CURATED_LONG[new Date().getDate()%CURATED_LONG.length];
+ const cont=Object.entries(state.hist).map(([id,h])=>({s:byId(id),h})).filter(x=>x.s&&!x.h.done).sort((a,b)=>b.h.ts-a.h.ts).slice(0,8);
+ const pop=[...ALL].sort((a,b)=>b.reads-a.reads).slice(0,14);
+ const fresh=[...ALL].sort((a,b)=>b.ts-a.ts).slice(0,10);
+ const auths=[...new Map(ALL.flatMap(s=>[[s.author,s]]).map(([a,s])=>[a,s])).keys()].slice(0,10);
+ const fm=minsOf(feat);
+ let html=`<div class="view"><div class="wrap">
+ <div class="feat">
+  <div class="feat-info rv in">
+   <span class="tag">✦ आज की दीर्घ कथा · ${G(feat.genre).name}</span>
+   <h1>${feat.title}</h1>
+   <div class="au">✍ ${feat.author}</div>
+   <p class="ex">${esc(feat.excerpt)}</p>
+   <div class="meta"><span>👁 <b>${fmt(feat.reads)}</b> पाठ</span><span>♥ <b>${fmt(feat.likes)}</b> पसंद</span><span>📖 <b>${feat.chapters.length}</b> अध्याय</span><span>⏱ <b>${fmtHours(fm)}</b> पठन समय</span></div>
+   <div class="feat-cta"><button class="btn btn-p" data-act="read" data-id="${feat.id}">📖 पढ़ना शुरू करें</button>
+   <button class="btn btn-g" data-act="save" data-id="${feat.id}">${state.saves.includes(feat.id)?'★ सहेजा गया':'☆ सहेजें'}</button></div>
+  </div>
+  <div class="feat-cover rv in"><div class="bigcover" data-act="detail" data-id="${feat.id}" style="cursor:pointer">
+   ${coverHTML(feat)}<span style="position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,.6));font-family:'Rozha One';font-size:20px;text-align:center;z-index:2">${feat.title}</span></div></div>
+ </div>
+ ${cont.length?`<section>${secHead('जहाँ रुके थे','पढ़ना जारी रखें')}<div class="shelf">${cont.map(({s,h})=>`
+  <article class="card rv" data-act="detail" data-id="${s.id}">${coverHTML(s)}
+  <span class="gtag g-${s.genre}">${h.ch+1}/${s.chapters.length} अध्याय</span>
+  <h3>${esc(s.title)}</h3><div class="pbar" style="margin:8px 0 4px"><i style="width:${Math.round(h.pct||5)}%"></i></div>
+  <div class="cm"><span>${Math.round(h.pct||5)}% पूरा</span><span>⏱ ${fmtHours(minsOf(s))}</span></div></article>`).join('')}</div></section>`:''}
+ <section>${secHead('पाठकों की पसंद','लोकप्रिय दीर्घ कथाएँ',{view:'explore'})}${shelfHTML(pop)}</section>
+ <section>${secHead('अलमारियाँ','शैलियाँ चुनें')}
+  <div class="gtiles">${GENRES.map(g=>{const n=ALL.filter(s=>s.genre===g.id).length;
+   return`<div class="gtile g-${g.id} rv" data-act="nav" data-view="explore" data-genre="${g.id}">
+   <div class="gg">${g.name[0]}</div><b>${g.name}</b><small>${fmt(n)} कहानियाँ</small></div>`}).join('')}</div></section>
+ <section>${secHead('ताज़ा स्याही','नई दीर्घ रचनाएँ',{view:'explore'})}<div class="grid">${fresh.map(s=>cardHTML(s)).join('')}</div></section>
+ <div class="orn">❋ ❋ ❋</div>
+ <section><div class="stats rv">
+  <div><b class="cnt" data-n="${ALL.length}">0</b><span>दीर्घ कथाएँ</span></div>
+  <div><b class="cnt" data-n="${GENRES.length}">0</b><span>शैलियाँ</span></div>
+  <div><b class="cnt" data-n="${AUTHORS.length}">0</b><span>लेखक</span></div>
+  <div><b>∞</b><span>कल्पनाएँ</span></div></div></section>
+ <section>${secHead('क़लम के धनी','हमारे लेखक')}
+  <div class="authrow">${auths.map(a=>{const n=ALL.filter(s=>s.author===a).length;const r2=rng(a.length*77+a.charCodeAt(0));const hue=Math.floor(r2()*360);
+   return`<div class="a rv" data-act="nav" data-view="explore" data-q="${esc(a)}">
+   <div class="av" style="background:hsl(${hue},45%,26%);color:hsl(${hue},70%,80%)">${a[0]}</div><b>${esc(a)}</b><small>${n} रचनाएँ</small></div>`}).join('')}</div></section>
+ <section style="text-align:center;margin-top:54px"><div class="orn" style="margin:0 0 18px">॥</div>
+  <h2 class="disp" style="font-size:clamp(26px,4vw,40px);font-weight:400">आपकी महागाथा, आपकी ज़ुबान</h2>
+  <p style="color:var(--tx2);max-width:52ch;margin:10px auto 24px">पढ़िए हज़ारों दीर्घ कथाएँ — और जो कहानी आपके अंदर है, उसे आज ही शब्द दीजिए।</p>
+  <button class="btn btn-p" data-act="nav" data-view="write">✍ लिखना शुरू करें</button></section>
+ </div></div>`;
+ $('#view').innerHTML=html;
+}
+function renderExplore(){
+ const chips=`<div class="chips">${[{id:'all',name:'सभी'},...GENRES].map(g=>`<button class="chip ${state.expG===g.id?'on':''}" data-act="chip" data-genre="${g.id}">${g.name}</button>`).join('')}</div>`;
+ $('#view').innerHTML=`<div class="view"><div class="wrap">
+ <h1 class="disp" style="font-size:clamp(30px,4.5vw,46px);font-weight:400;margin-top:26px">खोजें</h1>
+ <div class="searchbar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+ <input id="searchIn" placeholder="कहानी, लेखक या शैली खोजें…" value="${esc(state.expQ)}" autocomplete="off"></div>
+ ${chips}
+ <div class="exp-head"><small id="expCount"></small>
+  <select id="sortSel"><option value="hot" ${state.expSort==='hot'?'selected':''}>🔥 सबसे लोकप्रिय</option>
+  <option value="new" ${state.expSort==='new'?'selected':''}>🆕 नई</option>
+  <option value="liked" ${state.expSort==='liked'?'selected':''}>♥ सबसे पसंदीदा</option></select></div>
+ <div class="grid" id="expGrid"></div>
+ <div style="text-align:center;margin-top:30px"><button class="btn btn-g" id="moreBtn" data-act="more">और कहानियाँ दिखाएँ ↓</button></div>
+ </div></div>`;
+ $('#searchIn').addEventListener('input',e=>{clearTimeout(window._db);window._db=setTimeout(()=>{state.expQ=e.target.value;state.expShown=36;fillGrid()},180)});
+ $('#sortSel').addEventListener('change',e=>{state.expSort=e.target.value;state.expShown=36;fillGrid()});
+ fillGrid();observe();
+}
+function fillGrid(){
+ let list=ALL.filter(s=>{const ok=state.expG==='all'||s.genre===state.expG;
+  const q=state.expQ.trim();const okq=!q||(s.title+s.author+G(s.genre).name).includes(q);return ok&&okq});
+ if(state.expSort==='hot')list.sort((a,b)=>b.reads-a.reads);
+ if(state.expSort==='new')list.sort((a,b)=>b.ts-a.ts);
+ if(state.expSort==='liked')list.sort((a,b)=>b.likes-a.likes);
+ $('#expCount').textContent=`${fmt(list.length)} दीर्घ कथाएँ मिलीं`;
+ const slice=list.slice(0,state.expShown);
+ $('#expGrid').innerHTML=slice.length?slice.map(s=>cardHTML(s,false)).join(''):`<div class="empty" style="grid-column:1/-1"><div class="disp">कुछ नहीं मिला</div>खोज बदलकर देखें, या कोई नई शैली चुनें।</div>`;
+ $('#moreBtn').style.display=list.length>state.expShown?'':'none';
+}
+function renderDetail(id){
+ const s=byId(id);if(!s)return go('home');
+ const g=G(s.genre),m=minsOf(s);
+ const similar=ALL.filter(x=>x.genre===s.genre&&x.id!==s.id).sort((a,b)=>b.reads-a.reads).slice(0,7);
+ const liked=state.likes.has(s.id),saved=state.saves.includes(s.id);
+ const hist=state.hist[s.id];
+ $('#view').innerHTML=`<div class="view"><div class="wrap">
+ <button class="backbtn" data-act="back">← वापस</button>
+ <div class="d-grid">
+  <div><div class="d-cover">${coverHTML(s)}<span style="position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.55));font-family:'Rozha One';text-align:center;z-index:2">${s.title}</span></div>
+  <div style="margin-top:22px;text-align:center;color:var(--tx3);font-size:13px">प्रकाशित: ${timeAgo(s.ts)} · भाषा: हिंदी</div></div>
+  <div class="d-info">
+   <span class="gtag g-${s.genre}" style="font-size:12px;padding:4px 14px">${g.name}</span>
+   <h1>${esc(s.title)}</h1>
+   <div class="d-auth"><div class="av" style="background:hsl(${s.hue},40%,24%);color:hsl(${s.hue},65%,78%)">${s.author[0]}</div>
+   <div><b>${esc(s.author)}</b><small>${fmt(ALL.filter(x=>x.author===s.author).length)} रचनाएँ · कथा लेखक</small></div></div>
+   <div class="d-stats">
+    <div><b>${fmt(s.reads)}</b><span>पाठ</span></div>
+    <div><b>${fmt(s.likes)}</b><span>पसंद</span></div>
+    <div><b>${fmtHours(m)}</b><span>पठन समय</span></div>
+    <div><b>${s.chapters.length}</b><span>अध्याय</span></div></div>
+   <div class="d-actions">
+    <button class="btn btn-p" data-act="read" data-id="${s.id}" data-ch="${hist?hist.ch:0}">📖 ${hist?'जारी रखें':'पढ़ना शुरू करें'}</button>
+    <button class="btn btn-g likebtn ${liked?'on':''}" data-act="like" data-id="${s.id}">♥ ${liked?'पसंद किया':'पसंद करें'}</button>
+    <button class="btn btn-g savebtn ${saved?'on':''}" data-act="save" data-id="${s.id}">${saved?'★ सहेजा गया':'☆ सहेजें'}</button>
+    <button class="btn btn-g" data-act="share" data-id="${s.id}">↗ साझा करें</button></div>
+   <div class="ey" style="font-size:12px;letter-spacing:.3em;color:var(--saff);font-weight:700;margin-bottom:10px">✦ परिचय</div>
+   <p class="synopsis">${esc(s.excerpt)}</p>
+   <div class="ey" style="font-size:12px;letter-spacing:.3em;color:var(--saff);font-weight:700;margin-bottom:12px">✦ अध्याय (${s.chapters.length})</div>
+   <div class="chlist">${s.chapters.map((c,i)=>{const chHist=hist&&hist.ch===i?hist:null;const prog=chHist?Math.round(chHist.pct||0):0;
+    return`<div class="chrow" data-act="read" data-id="${s.id}" data-ch="${i}">
+    <span class="n">${['१','२','३','४','५','६','७','८','९','१०','११','१२','१३','१४','१५'][i]||i+1}</span>
+    <b>${esc(c.t)}</b>
+    ${prog>0?`<div class="prog"><i style="width:${prog}%"></i></div>`:''}
+    <small>${Math.max(1,Math.round(c.b.length/450))} मिनट</small></div>`}).join('')}</div>
+  </div></div>
+ <section>${secHead('ऐसी ही','और दीर्घ कथाएँ')}${shelfHTML(similar,false)}</section>
+ </div></div>`;
+}
+function renderWrite(){
+ $('#view').innerHTML=`<div class="view"><div class="wrap">
+ <button class="backbtn" data-act="back">← वापस</button>
+ <h1 class="disp" style="font-size:clamp(30px,4.5vw,44px);font-weight:400">✍ नई दीर्घ रचना</h1>
+ <p style="color:var(--tx2);margin-top:4px">आपकी कहानी ${fmt(ALL.length+1)}वीं कथा बनेगी — आज ही लिखिए।</p>
+ <div class="wform">
+  <div><label>शीर्षक *</label><input class="field" id="wTitle" placeholder="जैसे — पीली धूप का मुसाफ़िर" maxlength="60"></div>
+  <div><label>शैली *</label><div class="chips" id="wGenres">${GENRES.map((g,i)=>`<button class="chip ${i===0?'on':''}" data-act="wchip" data-genre="${g.id}">${g.name}</button>`).join('')}</div></div>
+  <div><label>सार / परिचय (वैकल्पिक)</label><input class="field" id="wEx" placeholder="एक वाक्य में कहानी का जादू…"></div>
+  <div id="wChs"><div class="chblk"><div class="chh"><span>अध्याय 1</span></div>
+   <input class="field wct" placeholder="अध्याय का शीर्षक" value="पहला अध्याय" style="margin-bottom:10px">
+   <textarea class="field wcb" placeholder="यहाँ कहानी लिखें… (खाली पैराग्राफ़ के लिए दो बार Enter दबाएँ)"></textarea></div></div>
+  <button class="btn btn-g" data-act="addch" style="align-self:flex-start">+ अध्याय जोड़ें</button>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+   <button class="btn btn-p" data-act="publish" style="font-size:17px;padding:14px 36px">🪔 प्रकाशित करें</button>
+   <small style="color:var(--tx3);align-self:center">प्रकाशित होते ही कहानी संग्रह में दिखने लगेगी।</small></div>
+ </div></div></div>`;
+}
+let wGenre='prem';
+function renderLibrary(){
+ const tabs=[['saved','★ सहेजी गई'],['hist','⏱ इतिहास'],['mine','✍ मेरी रचनाएँ']];
+ let body='';
+ if(state.libTab==='saved'){const list=state.saves.map(byId).filter(Boolean);
+  body=list.length?list.map(s=>lrowHTML(s,{rm:'unsave'})).join(''):`<div class="empty"><div class="disp">संग्रह खाली है</div>किसी कहानी पर ☆ सहेजें दबाकर उसे यहाँ लाएँ।</div>`}
+ if(state.libTab==='hist'){const list=Object.entries(state.hist).map(([id,h])=>({s:byId(id),h})).filter(x=>x.s).sort((a,b)=>b.h.ts-a.h.ts);
+  body=list.length?list.map(({s,h})=>lrowHTML(s,{prog:h.done?100:Math.round(h.pct||0),lab:h.done?'पूरी पढ़ी ✓':(h.ch+1)+'वाँ अध्याय'})).join(''):`<div class="empty"><div class="disp">अभी कुछ पढ़ा नहीं</div>पहली कहानी आपका इंतज़ार कर रही है।</div>`}
+ if(state.libTab==='mine'){const list=state.mine.map(m=>byId(m.id)).filter(Boolean);
+  body=list.length?list.map(s=>lrowHTML(s,{rm:'delmine'})).join(''):`<div class="empty"><div class="disp">अभी कोई रचना नहीं</div>✍ दबाकर अपनी पहली कहानी लिखें।</div>`}
+ $('#view').innerHTML=`<div class="view"><div class="wrap">
+ <h1 class="disp" style="font-size:clamp(30px,4.5vw,44px);font-weight:400;margin-top:26px">मेरा संग्रह</h1>
+ <div class="tabs">${tabs.map(t=>`<button class="tab ${state.libTab===t[0]?'on':''}" data-act="libtab" data-tab="${t[0]}">${t[1]}</button>`).join('')}</div>
+ ${body}</div></div>`;
+}
+function renderProfile(){
+ const readCount=Object.keys(state.hist).length;
+ const totalMin=Object.keys(state.hist).reduce((a,id)=>a+(byId(id)?minsOf(byId(id)):0),0);
+ const wrote=state.mine.length;
+ const badges=[['📖','पहला पन्ना','पहली कहानी खोली',readCount>=1],['🔥','किताबी कीड़ा','5 कहानियाँ पढ़ीं',readCount>=5],['🏁','कहानी पूरी','एक कहानी समाप्त',state.finished.size>=1],['✍','कथाकार','अपनी रचना प्रकाशित',wrote>=1],['★','संग्राहक','3 कहानियाँ सहेजीं',state.saves.length>=3],['📚','लाइब्रेरियन','10 कहानियाँ पढ़ीं',readCount>=10],['⏰','दीर्घ पाठक','10 घंटे पढ़े',totalMin>=600]];
+ $('#view').innerHTML=`<div class="view"><div class="wrap">
+ <div class="phero"><div class="av">अ</div><div><h1>अतिथि पाठक</h1><p>सदस्यता: आज से ✦ ${fmt(ALL.length)} दीर्घ कथाओं की दुनिया में आपका स्वागत है।</p></div></div>
+ <div class="pstats">
+  <div><b class="cnt" data-n="${readCount}">0</b><span>कहानियाँ पढ़ीं</span></div>
+  <div><b class="cnt" data-n="${totalMin}">0</b><span>मिनट पठन</span></div>
+  <div><b class="cnt" data-n="${state.saves.length+wrote}">0</b><span>संग्रह में</span></div></div>
+ ${secHead('उपलब्धियाँ','बैज','',)}
+ <div class="badges">${badges.map(b=>`<div class="badge ${b[3]?'':'lock'} rv"><span class="bi">${b[0]}</span><b>${b[1]}</b><small>${b[2]}</small></div>`).join('')}</div>
+ <div class="orn">॥</div>
+ <div style="text-align:center;color:var(--tx3);font-size:13px;margin-top:20px">कथा · संस्करण 2.0 · "दीर्घ कथाएँ — जहाँ शब्द ज़िंदगी बनते हैं।"</div>
+ </div></div>`;
+}
+
+/* ================= reader ================= */
+let R={id:null,ch:0,autoScrollTimer:null};
+function openReader(id,ch=0){
+ const s=byId(id);if(!s)return;R={id,ch:ch||0};
+ const st=state.rset;
+ const rd=$('#reader');rd.className='open th-'+st.th;
+ const chProg=s.chapters.map((_,i)=>{const h=state.hist[id];return h&&h.ch===i?Math.round(h.pct||0):0});
+ rd.innerHTML=`<div id="rProgress"></div>
+ <div class="r-layout">
+  <div class="r-sidebar ${window.innerWidth<=860?'collapsed':''}" id="rSidebar">
+   <div class="r-sidebar-head"><b>${esc(s.title)}</b><button class="iconbtn" data-act="rclose" style="width:32px;height:32px;font-size:14px">✕</button></div>
+   <div class="r-chlist">${s.chapters.map((c,i)=>`<div class="r-chitem ${i===R.ch?'active':''}" data-act="rchjump" data-ch="${i}">
+    <span class="cht">${esc(c.t)}</span>
+    <div class="chm"><span>${Math.max(1,Math.round(c.b.length/450))} मिनट</span><span>${chProg[i]>0?chProg[i]+'%':''}</span></div>
+    ${chProg[i]>0?`<div class="chprog"><i style="width:${chProg[i]}%"></i></div>`:''}
+   </div>`).join('')}</div>
+  </div>
+  <div class="r-main">
+   <div class="r-topbar">
+    <button class="iconbtn toggle-sb" data-act="rtogglesb" style="width:34px;height:34px">☰</button>
+    <b id="rTopTitle">${esc(s.chapters[R.ch].t)}</b>
+    <button class="iconbtn" data-act="rset" style="width:34px;height:34px">अ</button></div>
+   <div class="r-time-remain" id="rTimeRemain"></div>
+   <div class="r-body-wrap" id="rBodyWrap"><div class="r-body-inner" id="rBodyInner"></div></div>
+   <div class="r-foot">
+    <button data-act="rnav" data-d="-1">← पिछला</button>
+    <button class="mid" id="rMid"></button>
+    <button data-act="rnav" data-d="1" id="rNext">अगला →</button></div>
+  </div></div>
+ <div id="rSet" class="th-${st.th}">
+  <h4>रंग-रूप</h4>
+  <div class="themes">${['light','sepia','dark'].map(t=>`<button class="thsw thsw-${t} ${st.th===t?'on':''}" data-act="rtheme" data-th="${t}">${t==='light'?'उजला':t==='sepia'?'सेपिया':'रात'}</button>`).join('')}</div>
+  <h4>फ़ॉन्ट आकार</h4>
+  <div class="frow"><button data-act="rfs" data-d="-1">अ−</button><input type="range" min="16" max="28" step="1" value="${st.fs}" id="fsRange"><button data-act="rfs" data-d="1">अ+</button></div>
+  <h4>पंक्ति अंतर</h4>
+  <div class="frow"><button data-act="rlh" data-v="1.7">सघन</button><button data-act="rlh" data-v="2.05">सामान्य</button><button data-act="rlh" data-v="2.5">खुला</button></div>
+  <div class="auto-scroll-toggle">
+   <label>स्वतः स्क्रॉल</label>
+   <div class="toggle-switch ${st.autoScroll?'on':''}" data-act="rautoscroll"></div>
+  </div>
+ </div>`;
+ document.body.style.overflow='hidden';
+ $('#fsRange').addEventListener('input',e=>{state.rset.fs=+e.target.value;persist();paintReader()});
+ $('#rBodyWrap').addEventListener('scroll',()=>{const b=$('#rBodyWrap');const pct=Math.min(100,b.scrollTop/(b.scrollHeight-b.clientHeight||1)*100);$('#rProgress').style.width=pct+'%';saveHist(id,R.ch,pct)});
+ paintReader();
+ if(st.autoScroll)startAutoScroll();
+}
+function paintReader(){
+ const s=byId(R.id),c=s.chapters[R.ch],st=state.rset;
+ $('#rBodyInner').style.fontSize=st.fs+'px';$('#rBodyInner').style.setProperty('--lh',st.lh);
+ $('#rBodyInner').innerHTML=`<div class="chno">${esc(s.title)} · अध्याय ${R.ch+1}/${s.chapters.length}</div>
+ <h2 class="chtitle">${esc(c.t)}</h2>
+ ${c.b.split('\n\n').map(p=>`<p>${esc(p)}</p>`).join('')}
+ ${R.ch===s.chapters.length-1?`<div class="end-mark">॥ समाप्त ॥</div>`:''}`;
+ $('#rTopTitle').textContent=c.t;
+ $('#rMid').textContent=`अध्याय ${R.ch+1} / ${s.chapters.length}`;
+ $('#rNext').textContent=R.ch===s.chapters.length-1?'समाप्त ✓':'अगला →';
+ $('#rBodyWrap').scrollTop=0;$('#rProgress').style.width='0%';
+ // Update sidebar active
+ $$('.r-chitem').forEach((el,i)=>el.classList.toggle('active',i===R.ch));
+ // Time remaining
+ const remainWords=c.b.length-(($('#rBodyWrap').scrollTop/($('#rBodyWrap').scrollHeight||1))*c.b.length);
+ const remainMins=Math.max(1,Math.round(remainWords/450));
+ $('#rTimeRemain').textContent=`≈ ${fmtHours(remainMins)} शेष इस अध्याय में`;
+}
+function saveHist(id,ch,pct,done){const h=state.hist[id]||{};state.hist[id]={ch:Math.max(ch,h.done&&done?h.ch:ch),pct,done:done||h.done,ts:Date.now()};if(done)state.finished.add(id);persist()}
+function closeReader(){stopAutoScroll();const rd=$('#reader');rd.className='';rd.innerHTML='';document.body.style.overflow='';if(['home','library','detail'].includes(state.view))refresh()}
+function startAutoScroll(){stopAutoScroll();R.autoScrollTimer=setInterval(()=>{const b=$('#rBodyWrap');if(b&&b.scrollTop<b.scrollHeight-b.clientHeight){b.scrollBy({top:2,behavior:'auto'})}else{stopAutoScroll()}},50)}
+function stopAutoScroll(){if(R.autoScrollTimer){clearInterval(R.autoScrollTimer);R.autoScrollTimer=null}}
+
+/* ================= actions ================= */
+function refresh(){const y=window.scrollY;({home:renderHome,explore:renderExplore,detail:()=>renderDetail(state.detailId),write:renderWrite,library:renderLibrary,profile:renderProfile})[state.view]();window.scrollTo(0,y);observe()}
+function go(v,param){
+ if(v==='explore'&&param){if(param.genre)state.expG=param.genre;if(param.q)state.expQ=param.q}
+ state.view=v;if(v==='detail')state.detailId=param;
+ ({home:renderHome,explore:renderExplore,detail:()=>renderDetail(param),write:renderWrite,library:renderLibrary,profile:renderProfile})[v]();
+ window.scrollTo({top:0});
+ $$('.nv,[data-key]').forEach(b=>b.classList.toggle('on',b.dataset.key===v||(v==='detail'&&b.dataset.key==='home')));
+ observe();countObserve();
+}
+function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML=`<span class="ts">✦</span> ${msg}`;$('#toasts').appendChild(t);setTimeout(()=>t.remove(),2900)}
+function burst(el){const r=el.getBoundingClientRect();for(let i=0;i<7;i++){const p=document.createElement('span');p.className='burstp';p.textContent=i%2?'♥':'✦';p.style.left=r.left+r.width/2+'px';p.style.top=r.top+r.height/2+'px';p.style.color=i%2?'#ff7a6e':'#f0a13c';p.style.setProperty('--bx',(Math.random()*120-60)+'px');p.style.setProperty('--by',(-40-Math.random()*70)+'px');document.body.appendChild(p);setTimeout(()=>p.remove(),750)}}
+document.addEventListener('click',e=>{
+ const t=e.target.closest('[data-act]');if(!t)return;
+ const a=t.dataset.act,id=t.dataset.id;
+ if(a==='nav'){go(t.dataset.view,t.dataset.genre?{genre:t.dataset.genre}:t.dataset.q?{q:t.dataset.q}:undefined);$('#bellPanel').classList.remove('open')}
+ else if(a==='detail'){go('detail',id)}
+ else if(a==='back'){history.length>1?history.back():go('home')}
+ else if(a==='read'){openReader(id,+(t.dataset.ch||0))}
+ else if(a==='like'){const s=byId(id);if(state.likes.has(id)){state.likes.delete(id);toast('पसंद हटाई गई')}else{state.likes.add(id);s.likes++;burst(t);toast('कहानी पसंद की गई ♥')}persist();refresh()}
+ else if(a==='save'){if(state.saves.includes(id)){state.saves=state.saves.filter(x=>x!==id);toast('संग्रह से हटाई गई')}else{state.saves.unshift(id);toast('संग्रह में सहेजी गई ★')}persist();refresh()}
+ else if(a==='unsave'){e.stopPropagation();state.saves=state.saves.filter(x=>x!==id);persist();refresh()}
+ else if(a==='delmine'){e.stopPropagation();state.mine=state.mine.filter(m=>m.id!==id);ALL=ALL.filter(s=>s.id!==id);persist();refresh();toast('रचना हटा दी गई')}
+ else if(a==='share'){const url='https://katha.app/s/'+id;(navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast('लिंक कॉपी हो गया ↗')).catch(()=>toast('katha.app/s/'+id))}
+ else if(a==='chip'){state.expG=t.dataset.genre;state.expShown=36;renderExplore()}
+ else if(a==='more'){state.expShown+=36;fillGrid();observe()}
+ else if(a==='libtab'){state.libTab=t.dataset.tab;renderLibrary();observe()}
+ else if(a==='bell'){$('#bellPanel').classList.toggle('open');$('#bellDot').style.display='none'}
+ else if(a==='rclose'){closeReader()}
+ else if(a==='rset'){$('#rSet').classList.toggle('open')}
+ else if(a==='rtogglesb'){$('#rSidebar').classList.toggle('mobile-open')}
+ else if(a==='rchjump'){const ch=+t.dataset.ch;saveHist(R.id,R.ch,100);R.ch=ch;saveHist(R.id,R.ch,0);paintReader();$('#rSidebar').classList.remove('mobile-open')}
+ else if(a==='rtheme'){state.rset.th=t.dataset.th;persist();$('#reader').className='open th-'+state.rset.th;$('#rSet').className='th-'+state.rset.th;$$('#rSet .thsw').forEach(b=>b.classList.toggle('on',b.dataset.th===state.rset.th))}
+ else if(a==='rfs'){state.rset.fs=Math.min(28,Math.max(16,state.rset.fs+ +t.dataset.d));persist();$('#fsRange').value=state.rset.fs;paintReader()}
+ else if(a==='rlh'){state.rset.lh=t.dataset.v;persist();paintReader()}
+ else if(a==='rautoscroll'){state.rset.autoScroll=!state.rset.autoScroll;persist();t.classList.toggle('on',state.rset.autoScroll);state.rset.autoScroll?startAutoScroll():stopAutoScroll()}
+ else if(a==='rnav'){const s=byId(R.id),d=+t.dataset.d;
+  if(d===1&&R.ch===s.chapters.length-1){saveHist(R.id,R.ch,100,true);toast('🎉 कहानी पूरी हुई! धन्यवाद पाठक');closeReader();return}
+  const n=R.ch+d;if(n<0||n>=s.chapters.length)return;saveHist(R.id,R.ch,100);R.ch=n;saveHist(R.id,R.ch,0);paintReader();stopAutoScroll();if(state.rset.autoScroll)startAutoScroll()}
+ else if(a==='wchip'){$$('#wGenres .chip').forEach(c=>c.classList.remove('on'));t.classList.add('on');wGenre=t.dataset.genre}
+ else if(a==='addch'){const n=$$('#wChs .chblk').length+1;const d=document.createElement('div');d.className='chblk';
+  d.innerHTML=`<div class="chh"><span>अध्याय ${n}</span><button class="del" data-act="delch">✕ हटाएँ</button></div>
+  <input class="field wct" placeholder="अध्याय का शीर्षक" value="${['','पहला','दूसरा','तीसरा','चौथा'][n-1]||n+'वाँ'} अध्याय" style="margin-bottom:10px">
+  <textarea class="field wcb" placeholder="यहाँ लिखें…"></textarea>`;$('#wChs').appendChild(d)}
+ else if(a==='delch'){t.closest('.chblk').remove()}
+ else if(a==='publish'){
+  const title=$('#wTitle').value.trim();const chs=$$('#wChs .chblk').map(b=>({t:b.querySelector('.wct').value.trim()||'अध्याय',b:b.querySelector('.wcb').value.trim()})).filter(c=>c.b);
+  if(!title)return toast('पहले कहानी का शीर्षक लिखिए');
+  if(!chs.length)return toast('कम से कम एक अध्याय लिखिए');
+  const ns={id:'u'+Date.now(),title,author:'अतिथि पाठक (आप)',genre:wGenre,reads:1,likes:0,ts:Date.now(),chapters:chs,
+   excerpt:($('#wEx').value.trim()||chs[0].b.slice(0,200))+'…',hue:HUES[wGenre],pat:Math.floor(Math.random()*4),glyph:title[0],mine:true};
+  ALL.unshift(ns);state.mine.unshift(ns);persist();toast('🪔 कहानी प्रकाशित हो गई!');go('detail',ns.id)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();go('explore');setTimeout(()=>$('#searchIn')&&$('#searchIn').focus(),80)}});
+document.addEventListener('click',e=>{if(!e.target.closest('#bellPanel')&&!e.target.closest('[data-act="bell"]'))$('#bellPanel').classList.remove('open');
+ if(!e.target.closest('#rSet')&&!e.target.closest('[data-act="rset"]')&&$('#rSet'))$('#rSet').classList.remove('open')});
+
+/* ================= fx ================= */
+const obs=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}}),{threshold:.08});
+function observe(){$$('.rv:not(.in)').forEach(el=>obs.observe(el))}
+function countUp(el){const n=+el.dataset.n,t0=performance.now();const f=t=>{const p=Math.min(1,(t-t0)/1200);el.textContent=fmt(Math.round(n*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+const cobs=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){countUp(x.target);cobs.unobserve(x.target)}}),{threshold:.4});
+function countObserve(){$$('.cnt').forEach(el=>cobs.observe(el))}
+(function glyphs(){const box=$('#glyphs');const L=['क','थ','आ','र','स','म','ई','द','प','ह'];
+ for(let i=0;i<14;i++){const s=document.createElement('span');s.textContent=L[i%L.length];
+ s.style.cssText=`left:${Math.random()*100}vw;top:${Math.random()*100}vh;font-size:${50+Math.random()*120}px;animation-duration:${24+Math.random()*30}s;animation-delay:-${Math.random()*20}s`;box.appendChild(s)}})();
+
+/* ================= init ================= */
+go('home');
+setTimeout(()=>$('#splash').classList.add('off'),1500);
+</script>
+</body>
+</html>
